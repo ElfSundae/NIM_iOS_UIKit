@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.homepage = 'http://netease.im' 
   s.license = { :'type' => 'Copyright', :'text' => ' Copyright 2017 Netease '} 
   s.authors = 'Netease IM Team'  
-  s.source  = { :git => 'https://github.com/netease-im/NIM_iOS_UIKit.git', :tag => '2.11.6'}  
+  s.source  = { :git => 'https://github.com/ElfSundae/NIM_iOS_UIKit.git', :tag => s.version}  
   s.platform = :ios, '8.0' 
   s.frameworks = 'CoreText', 'SystemConfiguration', 'AVFoundation', 'CoreTelephony', 'AudioToolbox', 'CoreMedia' , 'VideoToolbox' 
   s.libraries  = 'sqlite3.0', 'z', 'c++' 
