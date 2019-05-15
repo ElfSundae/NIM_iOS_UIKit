@@ -1123,11 +1123,11 @@
 
 #pragma mark - 旋转处理 (iOS7)
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    NSIndexPath *reloadIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView reloadRowsAtIndexPaths:@[reloadIndexPath] withRowAnimation:UITableViewRowAnimationNone];
-}
+//- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+//{
+//    NSIndexPath *reloadIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//    [self.tableView reloadRowsAtIndexPaths:@[reloadIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+//}
 
 #pragma mark - 旋转处理 (iOS8 or above)
 - (void)viewWillTransitionToSize:(CGSize)size
