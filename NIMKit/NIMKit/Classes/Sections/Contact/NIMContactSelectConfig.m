@@ -40,7 +40,6 @@
     NIMGroupedData *groupedData = [[NIMGroupedData alloc] init];
     NSMutableArray *myFriendArray = @[].mutableCopy;
     NSMutableArray *data = [NIMSDK sharedSDK].userManager.myFriends.mutableCopy;
-    NSArray *robot_uids = @[].mutableCopy;
     NSMutableArray *members = @[].mutableCopy;
     
     for (NIMUser *user in data) {
@@ -61,7 +60,7 @@
         for (NIMRobot *robot in robot_data) {
             [robotsArr addObject:robot.userId];
         }
-        robot_uids = [self filterData:robotsArr];
+        NSArray *robot_uids = [self filterData:robotsArr];
         for (NSString *uid in robot_uids) {
             NIMGroupUser *user = [[NIMGroupUser alloc] initWithUserId:uid];
             [members addObject:user];
@@ -185,7 +184,6 @@
     [[NIMSDK sharedSDK].teamManager fetchTeamMembers:teamID completion:^(NSError * _Nullable error, NSArray<NIMTeamMember *> * _Nullable members) {
         if (!error) {
             NSMutableArray *teamMember_data = @[].mutableCopy;
-            NSArray *robot_uids = @[].mutableCopy;
             for (NIMTeamMember *member in members) {
                 [teamMember_data addObject:member.userId];
             }
@@ -204,7 +202,7 @@
                 for (NIMRobot *robot in robot_data) {
                     [robotsArray addObject:robot.userId];
                 }
-                robot_uids = [weakSelf filterData:robotsArray];
+                NSArray *robot_uids = [weakSelf filterData:robotsArray];
                 for (NSString *uid in robot_uids) {
                     NIMGroupUser *user = [[NIMGroupUser alloc] initWithUserId:uid];
                     [membersArr addObject:user];
@@ -260,7 +258,6 @@
 - (void)getContactData:(NIMContactDataProviderHandler)handler {
     NIMGroupedData *groupedData = [[NIMGroupedData alloc] init];
     NSMutableArray *teams = @[].mutableCopy;
-    NSArray *robot_uids = @[].mutableCopy;
     NSMutableArray *members = @[].mutableCopy;
     NSMutableArray *team_data = [[NIMSDK sharedSDK].teamManager.allMyTeams mutableCopy];
     
@@ -282,7 +279,7 @@
         for (NIMRobot *robot in robot_data) {
             [robotsArray addObject:robot.userId];
         }
-        robot_uids = [self filterData:robotsArray];
+        NSArray *robot_uids = [self filterData:robotsArray];
         
         for (NSString *uid in robot_uids) {
             NIMGroupUser *user = [[NIMGroupUser alloc] initWithUserId:uid];
