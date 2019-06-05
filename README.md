@@ -1,9 +1,17 @@
 # 网易云信 UI 组件 	· iOS
 [![Build Status](https://img.shields.io/travis/ElfSundae/NIM_iOS_UIKit/master.svg?style=flat)](https://travis-ci.org/ElfSundae/NIM_iOS_UIKit)
-[![Pod Version](https://img.shields.io/cocoapods/v/NIMKit-Patched.svg?style=flat)](#)
-[![Pod Platform](http://img.shields.io/cocoapods/p/NIMKit-Patched.svg?style=flat)](#)
+[![Pod Version](https://img.shields.io/cocoapods/v/NIMKit.svg?style=flat)](#)
+[![Pod Platform](http://img.shields.io/cocoapods/p/NIMKit.svg?style=flat)](#)
 [![Minimum Requirement](http://img.shields.io/badge/Requirement-iOS%208.0%2B-green.svg?style=flat)](#)
-[![LICENSE](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+[![LICENSE](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](./LICENSE)
+
+> **:warning: This is a patched version of [NIMKit](https://github.com/netease-im/NIM_iOS_UIKit).**
+>
+> ```ruby
+> pod 'NIMKit', :git => 'https://github.com/ElfSundae/NIM_iOS_UIKit.git'
+> ```
+>
+> **:mag_right: Comparing changes:** [netease-im/NIM_iOS_UIKit/compare/master...ElfSundae:master](https://github.com/netease-im/NIM_iOS_UIKit/compare/master...ElfSundae:master)
 
 ## 简介
 
@@ -18,12 +26,12 @@
 * 消息种类繁多，没有做很好的归类与统一，代码可拓展性低
 * 聊天界面 UI 元素，事件，回调众多，没有合理解耦
 
-而在日常的 iOS 开发中，大牛们为我们总结出各种方法来进行各个模块的解耦，大方向上有
+而在日常的 iOS 开发中，大牛们为我们总结出各种方法来进行各个模块的解耦，大方向上有 
 
-* MVCS
-* MVP
-* MVVM
-* VIPER
+* MVCS 
+* MVP 
+* MVVM 
+* VIPER 
 
 落实到细节上，又有使用组合，抽取数据源等等小技巧。但对于一些经验不足的 iOS 开发而言，做出一个优雅的聊天界面 ViewController 仍旧是一件难于上青天的事。
 
@@ -41,7 +49,7 @@
 我们建议你通过 [Cocoapods](https://cocoapods.org/) 来进行 `NIMKit` 的集成,在 `Podfile` 中加入以下内容:
 
 ```shell
-pod 'NIMKit-Patched'
+pod 'NIMKit'
 ```
 
 需要注意的是默认 `NIMKit` 依赖于 [轻量版本](https://github.com/netease-im/NIM_iOS_SDK_Lite) 的 `NIMSDK`，而 [完整版本](https://github.com/netease-im/NIM_iOS_SDK) 的 `NIMSDK` 不仅有 IM 模块，也有音视频模块。对于很多产品而言，只需要接入单纯的 IM 模块，这样可以减少对不必要模块的依赖，进而减少 App 体积。所以我们有两个版本的组件可供选择，安装完组件之后，则不必再安装 `NIMSDK` 依赖。
@@ -49,19 +57,19 @@ pod 'NIMKit-Patched'
 * 轻量版本
 
   ```shell
-  pod 'NIMKit-Patched'
+  pod 'NIMKit'
   ```
 
     或
 
   ```shell
-  pod 'NIMKit-Patched/Lite'
+  pod 'NIMKit/Lite'
   ```
 
 * 完整版本
 
   ```shell
-  pod 'NIMKit-Patched/Full'
+  pod 'NIMKit/Full'
   ```
 
 ### Swift 集成
