@@ -25,7 +25,7 @@
 
 @property (nonatomic,strong) UICollectionView *collectionView;
 
-@property (nonatomic,copy)   NSMutableArray *data;
+@property (nonatomic,strong)   NSMutableArray *data;
 
 @property (nonatomic,strong) NIMTeamMember *myTeamCard;
 
