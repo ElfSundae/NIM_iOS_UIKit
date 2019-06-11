@@ -12,23 +12,26 @@
 
 #if __has_include(<M80AttributedLabel/M80AttributedLabel.h>)
 #import <M80AttributedLabel/M80AttributedLabel.h>
-#else
+#elif __has_include("M80AttributedLabel.h")
 #import "M80AttributedLabel.h"
-#endif
-
-#if __has_include(<SDWebImage/SDWebImageCompat.h>)
-#import <SDWebImage/SDWebImageCompat.h>
-#elif __has_include("SDWebImageCompat.h")
-#import "SDWebImageCompat.h"
 #else
-@import SDWebImage;
+@import M80AttributedLabel;
 #endif
 
 #if __has_include(<SDWebImage/SDWebImage.h>)
 #import <SDWebImage/SDWebImage.h>
-#elif __has_include("UIView+WebCacheOperation.h")
-#import "UIView+WebCacheOperation.h"
+#elif __has_include(<SDWebImage/SDWebImageCompat.h>)
+#import <SDWebImage/SDWebImageCompat.h>
+#import <SDWebImage/UIView+WebCache.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/UIImageView+HighlightedWebCache.h>
+#import <SDWebImage/UIView+WebCacheOperation.h>
+#elif __has_include("SDWebImageCompat.h")
+#import "SDWebImageCompat.h"
 #import "UIView+WebCache.h"
+#import "UIImageView+WebCache.h"
+#import "UIImageView+HighlightedWebCache.h"
+#import "UIView+WebCacheOperation.h"
 #else
 @import SDWebImage;
 #endif
@@ -37,7 +40,7 @@
 #if __has_include(<Toast/Toast.h>)
 #import <Toast/Toast.h>
 #elif __has_include("UIView+Toast.h")
-#import "Toast/UIView+Toast.h"
+#import "UIView+Toast.h"
 #else
 @import Toast;
 #endif
