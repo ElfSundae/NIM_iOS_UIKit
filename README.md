@@ -1,9 +1,17 @@
 # 网易云信 UI 组件 	· iOS
-[![Build Status](https://img.shields.io/travis/netease-im/NIM_iOS_UIKit/master.svg?style=flat)](https://travis-ci.org/netease-im/NIM_iOS_UIKit)
+[![Build Status](https://img.shields.io/travis/ElfSundae/NIM_iOS_UIKit/master.svg?style=flat)](https://travis-ci.org/ElfSundae/NIM_iOS_UIKit)
 [![Pod Version](https://img.shields.io/cocoapods/v/NIMKit.svg?style=flat)](#)
 [![Pod Platform](http://img.shields.io/cocoapods/p/NIMKit.svg?style=flat)](#)
 [![Minimum Requirement](http://img.shields.io/badge/Requirement-iOS%208.0%2B-green.svg?style=flat)](#)
 [![LICENSE](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](./LICENSE)
+
+> **:warning: This is a patched version of [NIMKit](https://github.com/netease-im/NIM_iOS_UIKit).**
+>
+> ```ruby
+> pod 'NIMKit', :git => 'https://github.com/ElfSundae/NIM_iOS_UIKit.git'
+> ```
+>
+> **:mag_right: Comparing changes:** [netease-im/NIM_iOS_UIKit/compare/master...ElfSundae:master](https://github.com/netease-im/NIM_iOS_UIKit/compare/master...ElfSundae:master)
 
 ## 简介
 
