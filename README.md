@@ -7,6 +7,14 @@
 
 > **:warning: This is a patched version of [NIMKit](https://github.com/netease-im/NIM_iOS_UIKit).**
 >
+> Use the stable version:
+>
+> ```ruby
+> pod 'NIMKit', :source => 'https://github.com/ElfSundae/CocoaPods-Specs.git'
+> ```
+>
+> Or use the git `master` branch:
+>
 > ```ruby
 > pod 'NIMKit', :git => 'https://github.com/ElfSundae/NIM_iOS_UIKit.git'
 > ```
