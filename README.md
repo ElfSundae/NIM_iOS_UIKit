@@ -19,7 +19,7 @@
 > pod 'NIMKit', :git => 'https://github.com/ElfSundae/NIM_iOS_UIKit.git'
 > ```
 >
-> **:mag_right: Comparing changes:** [netease-im/NIM_iOS_UIKit/compare/master...ElfSundae:master](https://github.com/netease-im/NIM_iOS_UIKit/compare/master...ElfSundae:master)
+> **:mag_right: Comparing changes:** [netease-im/NIM_iOS_UIKit...ElfSundae/NIM_iOS_UIKit](https://github.com/ElfSundae/NIM_iOS_UIKit/compare)
 
 ## 简介
 
