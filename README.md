@@ -13,7 +13,7 @@
 > pod 'NIMKit', :source => 'https://github.com/ElfSundae/CocoaPods-Specs.git'
 > ```
 >
-> Or use the git `master` branch:
+> Or use the git source:
 >
 > ```ruby
 > pod 'NIMKit', :git => 'https://github.com/ElfSundae/NIM_iOS_UIKit.git'
