@@ -12,7 +12,9 @@
 #import "NIMMessageMaker.h"
 #import "NIMGlobalMacro.h"
 #import "NIMKitDependency.h"
+#import "TZImageManager.h"
 #import "NIMKitProgressHUD.h"
+#import "UIImage+NIMKit.h"
 
 @interface NIMKitMediaPickerController : TZImagePickerController
 
@@ -36,7 +38,7 @@
 {
     self = [super init];
     if (self) {
-        _mediaTypes = @[(NSString *)kUTTypeMovie,(NSString *)kUTTypeImage];
+        _mediaTypes = @[(NSString *)kUTTypeMovie,(NSString *)kUTTypeImage, (NSString *)kUTTypeGIF];
         _limit = 9;
     }
     return self;
@@ -95,6 +97,7 @@
                 vc.barItemTextColor = [UIColor whiteColor];
                 vc.navigationBar.barStyle = UIBarStyleDefault;
                 vc.allowPickingVideo = [strongSelf.mediaTypes containsObject:(NSString *)kUTTypeMovie];
+                vc.allowPickingGif = [strongSelf.mediaTypes containsObject:(NSString *)kUTTypeGIF];
                 if(handler) handler(vc);
             }
         });
@@ -146,12 +149,12 @@
         }
         
         UIImage *image = info[UIImagePickerControllerOriginalImage];
+        image = [image nim_fixOrientation];
         self.cameraResultHandler(nil,image);
         self.cameraResultHandler = nil;
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 #pragma mark - 相册回调
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto infos:(NSArray<NSDictionary *> *)infos
@@ -169,6 +172,11 @@
 }
 
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingVideo:(UIImage *)coverImage sourceAssets:(id)asset{
+    NSMutableArray *items = [[NSMutableArray alloc] initWithArray:@[asset]];
+    [self requestAssets:items];
+}
+
+- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingGifImage:(UIImage *)animatedImage sourceAssets:(PHAsset *)asset {
     NSMutableArray *items = [[NSMutableArray alloc] initWithArray:@[asset]];
     [self requestAssets:items];
 }

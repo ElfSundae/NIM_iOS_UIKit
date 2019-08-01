@@ -18,6 +18,22 @@
 @import M80AttributedLabel;
 #endif
 
+#if __has_include(<FLAnimatedImage.h>)
+#import <FLAnimatedImage.h>
+#elif __has_include("FLAnimatedImage.h")
+#import "FLAnimatedImage.h"
+#else
+@import FLAnimatedImage;
+#endif
+
+#if __has_include(<FLAnimatedImageView.h>)
+#import <FLAnimatedImageView.h>
+#elif __has_include("FLAnimatedImageView.h")
+#import "FLAnimatedImageView.h"
+#else
+@import FLAnimatedImage;
+#endif
+
 #if __has_include(<SDWebImage/SDWebImage.h>)
 #import <SDWebImage/SDWebImage.h>
 #elif __has_include(<SDWebImage/SDWebImageCompat.h>)
@@ -35,7 +51,6 @@
 #else
 @import SDWebImage;
 #endif
-
 
 #if __has_include(<Toast/Toast.h>)
 #import <Toast/Toast.h>
