@@ -53,6 +53,7 @@ FOUNDATION_EXPORT const unsigned char NIMKitVersionString[];
  *  会话页
  */
 #import "NIMSessionViewController.h"
+#import "NIMMessageMaker.h"
 
 /**
  *  会话列表页
