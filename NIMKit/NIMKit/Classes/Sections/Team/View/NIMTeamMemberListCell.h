@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <NIMSDK/NIMSDK.h>
-#import "NIMKit.h"
+#import "NIMKitInfo.h"
 
 @protocol NIMTeamMemberListCellActionDelegate <NSObject>
 

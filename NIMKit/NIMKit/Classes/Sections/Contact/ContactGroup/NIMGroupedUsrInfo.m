@@ -7,6 +7,7 @@
 //
 
 #import "NIMGroupedUsrInfo.h"
+#import "NIMKit.h"
 #import "NIMSpellingCenter.h"
 #import "NIMKitInfoFetchOption.h"
 
