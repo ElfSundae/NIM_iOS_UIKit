@@ -16,6 +16,7 @@
 #import "NIMContactSelectViewController.h"
 #import "NIMTeamMemberListViewController.h"
 #import "NIMTeamAnnouncementListViewController.h"
+#import "NIMKit.h"
 #import "NIMKitUtil.h"
 #import "NIMKitProgressHUD.h"
 #import "NIMTeamCardHeaderView.h"

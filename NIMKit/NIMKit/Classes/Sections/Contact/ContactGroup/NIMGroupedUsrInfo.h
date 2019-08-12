@@ -7,7 +7,8 @@
 //
 
 #import "NIMContactDefines.h"
-#import "NIMKit.h"
+#import "NIMKitInfo.h"
+#import <NIMSDK/NIMSDK.h>
 
 @interface NIMGroupUser:NSObject<NIMGroupMemberProtocol>
 

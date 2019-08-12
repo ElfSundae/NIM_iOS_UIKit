@@ -11,6 +11,7 @@
 #import "NIMTeamCardRowItem.h"
 #import "UIView+NIM.h"
 #import "UIImage+NIMKit.h"
+#import "NIMKit.h"
 #import "NIMKitUtil.h"
 #import "NIMKitDependency.h"
 #import "NIMKitProgressHUD.h"
