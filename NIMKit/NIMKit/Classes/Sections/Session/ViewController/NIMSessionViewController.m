@@ -140,6 +140,9 @@
 {
     [super viewWillDisappear:animated];
     [self.sessionInputView endEditing:YES];
+
+    [[NIMSDK sharedSDK].mediaManager cancelRecord];
+    [[NIMSDK sharedSDK].mediaManager stopPlay];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -499,6 +502,8 @@
 - (BOOL)onLongPressCell:(NIMMessage *)message
                  inView:(UIView *)view
 {
+    [[NIMSDK sharedSDK].mediaManager stopPlay];
+    
     BOOL handle = NO;
     NSArray *items = [self menusItems:message];
     if ([items count] && [self becomeFirstResponder]) {
