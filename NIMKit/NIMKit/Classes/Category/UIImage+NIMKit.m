@@ -109,6 +109,7 @@
     return [image nim_fixOrientation];
 }
 
+
 #pragma mark - Private
 
 - (UIImage *)nim_imageForUpload: (CGFloat)suggestPixels
@@ -266,6 +267,45 @@
     CGImageRelease(cgimg);
     return img;
 }
+
+- (UIImage *)nim_cropedImageWithSize:(CGSize)targetSize
+{
+    // 裁剪两边
+    CGSize sourceSize = self.size;
+    CGFloat cropedWidth = sourceSize.width;
+    CGFloat cropedHeight = sourceSize.height;
+
+    if (CGSizeEqualToSize(targetSize, CGSizeZero) ||
+        CGSizeEqualToSize(sourceSize, CGSizeZero) ||
+        targetSize.width == 0 ||
+        targetSize.height == 0)
+    {
+        return  self;
+    }
+    
+    if (targetSize.width / targetSize.height > sourceSize.width / sourceSize.height)
+    {
+        cropedHeight = cropedWidth * (targetSize.height / targetSize.width);
+    }
+    else
+    {
+        cropedWidth = cropedHeight * (targetSize.width / targetSize.height);
+    }
+    
+    CGRect cropRect = CGRectMake((sourceSize.width - cropedWidth) * .5f, (sourceSize.height - cropedHeight) * .5f, cropedWidth, cropedHeight);
+    CGImageRef imageRef = CGImageCreateWithImageInRect(self.CGImage, cropRect);
+    UIImage *image = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    
+    // 缩放
+    UIGraphicsBeginImageContextWithOptions(targetSize, YES, 0);
+    [image drawInRect:CGRectMake(0, 0, targetSize.width, targetSize.height)];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return image;
+}
+
 
 
 @end

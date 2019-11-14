@@ -51,9 +51,12 @@
             weakSelf.assetsPicker = picker;
             weakSelf.libraryResultHandler = result;
             UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
-            rootVC.modalPresentationStyle = UIModalPresentationFullScreen;
-            [rootVC presentViewController:picker animated:YES completion:nil];
-            
+            picker.modalPresentationStyle = UIModalPresentationFullScreen;
+            if (rootVC.presentedViewController) {
+                [rootVC.presentedViewController presentViewController:picker animated:YES completion:nil];
+            } else {
+                [rootVC presentViewController:picker animated:YES completion:nil];
+            }
         }else{
             result(nil,nil,PHAssetMediaTypeUnknown);
         }
@@ -67,11 +70,22 @@
 #if TARGET_IPHONE_SIMULATOR
         NSAssert(0, @"not supported");
 #elif TARGET_OS_IPHONE
-        self.imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+        
+        BOOL allowMovie = [_mediaTypes containsObject:(NSString *)kUTTypeMovie];
+        BOOL allowPhoto = [_mediaTypes containsObject:(NSString *)kUTTypeImage];
+        if (allowMovie && !allowPhoto) {
+            self.imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+        } else {
+            self.imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+        }
         self.imagePicker.videoQuality = UIImagePickerControllerQualityTypeHigh;
         UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
         rootVC.modalPresentationStyle = UIModalPresentationFullScreen;
-        [rootVC presentViewController:self.imagePicker animated:YES completion:nil];
+        if (rootVC.presentedViewController) {
+            [rootVC.presentedViewController presentViewController:self.imagePicker animated:YES completion:nil];
+        } else {
+            [rootVC presentViewController:self.imagePicker animated:YES completion:nil];
+        }
 #endif
     }
 }
@@ -100,6 +114,7 @@
                 vc.barItemTextColor = [UIColor whiteColor];
                 vc.navigationBar.barStyle = UIBarStyleDefault;
                 vc.allowPickingVideo = [strongSelf.mediaTypes containsObject:(NSString *)kUTTypeMovie];
+                vc.allowPickingImage = [strongSelf.mediaTypes containsObject:(NSString *)kUTTypeImage];
                 vc.allowPickingGif = [strongSelf.mediaTypes containsObject:(NSString *)kUTTypeGIF];
                 if(handler) handler(vc);
             }
@@ -256,6 +271,7 @@
     _mediaTypes = mediaTypes;
     _imagePicker.mediaTypes = mediaTypes;
     _assetsPicker.allowPickingVideo = [mediaTypes containsObject:(NSString *)kUTTypeMovie];
+    _assetsPicker.allowPickingImage = [mediaTypes containsObject:(NSString *)kUTTypeImage];
 }
 
 - (AVMutableVideoComposition *)getVideoComposition:(AVAsset *)asset

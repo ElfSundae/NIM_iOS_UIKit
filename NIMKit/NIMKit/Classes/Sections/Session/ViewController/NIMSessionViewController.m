@@ -229,6 +229,15 @@
 
 - (NSString *)sessionSubTitle{return @"";};
 
+#pragma mark - 状态操作
+- (NIMKitSessionState)sessionState {
+    return [self.interactor sessionState];
+}
+
+- (void)setSessionState:(NIMKitSessionState)state {
+    [self.interactor setSessionState:state];
+}
+
 #pragma mark - NIMChatManagerDelegate
 //开始发送
 - (void)willSendMessage:(NIMMessage *)message
@@ -642,7 +651,6 @@
 {
     [UIMenuController sharedMenuController].menuItems = nil;
 }
-
 
 #pragma mark - 操作接口
 - (void)uiAddMessages:(NSArray *)messages
