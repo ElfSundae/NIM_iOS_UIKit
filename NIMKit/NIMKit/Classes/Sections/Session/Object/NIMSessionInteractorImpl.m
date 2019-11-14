@@ -134,6 +134,9 @@ dispatch_queue_t NTESMessageDataPrepareQueue()
     }
     __weak typeof(self) weakSelf = self;
     dispatch_async(NTESMessageDataPrepareQueue(), ^{
+        typeof(weakSelf) strongSelf = weakSelf;
+        if (!strongSelf) return;
+
         NSMutableArray *models = [[NSMutableArray alloc] init];
         for (NIMMessage *message in messages)
         {
@@ -142,9 +145,9 @@ dispatch_queue_t NTESMessageDataPrepareQueue()
                 continue;
             }
             NIMMessageModel *model = [[NIMMessageModel alloc] initWithMessage:message];
-            model.shouldShowSelect = (_sessionState == NIMKitSessionStateSelect);
-            if ([_sessionConfig respondsToSelector:@selector(disableSelectedForMessage:)]) {
-                model.disableSelected = [_sessionConfig disableSelectedForMessage:model.message];;
+            model.shouldShowSelect = (strongSelf.sessionState == NIMKitSessionStateSelect);
+            if ([strongSelf.sessionConfig respondsToSelector:@selector(disableSelectedForMessage:)]) {
+                model.disableSelected = [strongSelf.sessionConfig disableSelectedForMessage:model.message];;
             }
             [weakSelf.layout calculateContent:model];
             [models addObject:model];
