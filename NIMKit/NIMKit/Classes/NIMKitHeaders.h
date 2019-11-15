@@ -70,6 +70,7 @@
 #import "NIMMessageCell.h"
 #import "NIMMessageCellFactory.h"
 #import "NIMMessageMaker.h"
+#import "NIMMessageUtil.h"
 #import "NIMNormalTeamCardViewController.h"
 #import "NIMNotificationContentConfig.h"
 #import "NIMPageView.h"
