@@ -116,7 +116,7 @@ FOUNDATION_EXPORT const unsigned char NIMKitVersionString[];
 /**
  *  群信息变更通知接口
  *
- *  @param teamIds 群 id 集合
+ *  @param teamId 群 id 集合
  */
 - (void)notifyTeamInfoChanged:(NSString *)teamId type:(NIMKitTeamType)type;
 
@@ -124,7 +124,7 @@ FOUNDATION_EXPORT const unsigned char NIMKitVersionString[];
 /**
  *  群成员变更通知接口
  *
- *  @param teamIds 群id
+ *  @param teamId 群id
  */
 - (void)notifyTeamMemebersChanged:(NSString *)teamId type:(NIMKitTeamType)type;
 
