@@ -10,19 +10,9 @@
 #import "NIMInputEmoticonDefine.h"
 #import "NIMKit.h"
 #import "NIMKitDevice.h"
+#import "NSBundle+NIMKit.h"
 
 @implementation UIImage (NIMKit)
-
-
-
-+ (UIImage *)nim_fetchEmoticon:(NSString *)imageNameOrPath{
-    UIImage *image = [UIImage nim_emoticonInKit:imageNameOrPath];
-    if (!image) {
-        image = [UIImage imageWithContentsOfFile:imageNameOrPath];
-    }
-    return image;
-}
-
 
 + (UIImage *)nim_fetchChartlet:(NSString *)imageName chartletId:(NSString *)chartletId{
     if ([chartletId isEqualToString:NIMKit_EmojiCatalog]) {
@@ -94,12 +84,24 @@
 
 
 + (UIImage *)nim_imageInKit:(NSString *)imageName{
-    return [UIImage imageNamed:imageName inBundle:[NIMKit sharedKit].resourceBundle compatibleWithTraitCollection:nil];
+    NSBundle *bundle = [NIMKit sharedKit].resourceBundle;
+    UIImage *image = [UIImage imageNamed:imageName inBundle:bundle compatibleWithTraitCollection:nil];
+    if (!image) {
+        image = [UIImage imageNamed:imageName];
+    }
+    //NSAssert(image != nil, @"nim_imageInKit return nil!");
+    return image;
 }
 
-+ (UIImage *)nim_emoticonInKit:(NSString *)imageName
-{
-    return [UIImage imageNamed:imageName inBundle:[NIMKit sharedKit].emoticonBundle compatibleWithTraitCollection:nil];
++ (UIImage *)nim_emoticonInKit:(NSString *)imageName {
+    NSBundle *bundle = [NIMKit sharedKit].emoticonBundle;
+    NSString *name = [NIMKit_EmojiPath stringByAppendingPathComponent:imageName];
+    UIImage *image = [UIImage imageNamed:name inBundle:bundle compatibleWithTraitCollection:nil];
+    if (!image) {
+        image = [UIImage imageNamed:imageName];
+    }
+    NSAssert(image != nil, @"nim_emoticonInKit return nil!");
+    return image;
 }
 
 - (UIImage *)nim_imageForAvatarUpload
