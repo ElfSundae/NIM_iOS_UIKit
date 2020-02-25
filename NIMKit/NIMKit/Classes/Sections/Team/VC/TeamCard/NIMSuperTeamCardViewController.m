@@ -18,6 +18,7 @@
 #import "NIMTeamListDataManager.h"
 #import "NIMKitInfoFetchOption.h"
 #import "NIMTeamHelper.h"
+#import "NIMKit.h"
 
 #define NIMSuperTeamCardShowMaxMemberCount (10)  //这个页面显示10个已经够了
 

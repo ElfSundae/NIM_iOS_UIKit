@@ -20,6 +20,7 @@
 #import "NIMTeamListDataManager.h"
 #import "NIMKitInfoFetchOption.h"
 #import "NIMTeamHelper.h"
+#import "NIMKit.h"
 
 @interface NIMAdvancedTeamCardViewController ()<NIMTeamMemberListCellActionDelegate,
                                                 NIMContactSelectDelegate,

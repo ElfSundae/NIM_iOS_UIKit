@@ -11,6 +11,7 @@
 #import "NIMCommonTableDelegate.h"
 #import "NIMAvatarImageView.h"
 #import "NIMTeamCardMemberItem.h"
+#import "NIMTeamListDataManager.h"
 #import "NIMKitUtil.h"
 #import "NIMKitDependency.h"
 #import "NIMKit.h"
@@ -52,7 +53,6 @@
     if (self = [super init]) {
         _memberId = userId;
         _dataSource = dataSource;
-        extern NSString *kNIMTeamListDataTeamMembersChanged;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(teamMemberUpdate:) name:kNIMTeamListDataTeamMembersChanged object:nil];
     }
     return self;
