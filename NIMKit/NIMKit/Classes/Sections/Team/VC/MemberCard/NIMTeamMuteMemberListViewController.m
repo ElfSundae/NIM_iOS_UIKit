@@ -12,6 +12,7 @@
 #import "NIMTeamCardMemberItem.h"
 #import "NIMKitDependency.h"
 #import "NIMKitProgressHUD.h"
+#import "NSString+NIMKit.h"
 
 static NSInteger kCollectionItemWidth = 55;
 static NSInteger kCollectionItemHeight = 80;
@@ -46,11 +47,11 @@ static NSInteger kCollectionEdgeInsetTop = 15;
 }
 
 - (void)refreshPage {
-    self.navigationItem.title = [NSString stringWithFormat:@"禁言成员(%zd)", _members.count];
+    self.navigationItem.title = [NSString stringWithFormat:@"禁言成员(%zd)".nim_localized, _members.count];
 }
 
 - (void)setupUI {
-    self.navigationItem.title = @"禁言成员";
+    self.navigationItem.title = @"禁言成员".nim_localized;
     [self.view addSubview:self.collectionView];
 }
 
@@ -58,7 +59,7 @@ static NSInteger kCollectionEdgeInsetTop = 15;
     __weak typeof(self) weakSelf = self;
     [_dataSource fetchTeamMutedMembersCompletion:^(NSError *error, NSMutableArray<NIMTeamCardMemberItem *> *members) {
         if (error) {
-            NSString *msg = [NSString stringWithFormat:@"获取禁言列表失败:%zd", error.code];
+            NSString *msg = [NSString stringWithFormat:@"获取禁言列表失败:%zd".nim_localized, error.code];
             [weakSelf.view makeToast:msg duration:1.5 position:CSToastPositionCenter];
         } else {
             weakSelf.members = members;

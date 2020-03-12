@@ -93,9 +93,9 @@
     [dateFormatter setDateFormat:@"yyyy/MM/dd"];
     NSString *dateString = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:timestamp]];
     if (!dateString.length) {
-        return @"未知时间创建";
+        return @"未知时间创建".nim_localized;
     }
-    return [NSString stringWithFormat:@"于%@创建",dateString];
+    return [NSString stringWithFormat:@"创建于%@".nim_localized,dateString];
 }
 
 #pragma mark - Action

@@ -194,12 +194,12 @@
     {
         if (self.model.message.session.sessionType == NIMSessionTypeP2P)
         {
-            [_readButton setTitle:@"已读" forState:UIControlStateNormal];
+            [_readButton setTitle:@"已读".nim_localized forState:UIControlStateNormal];
             [_readButton sizeToFit];
         }
         else if(self.model.message.session.sessionType == NIMSessionTypeTeam)
         {
-            [_readButton setTitle:[NSString stringWithFormat:@"%zd人未读",self.model.message.teamReceiptInfo.unreadCount] forState:UIControlStateNormal];
+            [_readButton setTitle:[NSString stringWithFormat:@"%zd人未读".nim_localized,self.model.message.teamReceiptInfo.unreadCount] forState:UIControlStateNormal];
             [_readButton sizeToFit];
         }
     }

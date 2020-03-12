@@ -10,6 +10,7 @@
 #import "NIMKitProgressHUD.h"
 #import "NIMKitDependency.h"
 #import "UIImage+NIMKit.h"
+#import "NSString+NIMKit.h"
 
 #define NIMTeamInfoCardShowMaxMember (10)  //这个页面显示10个已经够了
 
@@ -70,13 +71,13 @@
     info[@"attach"] = @"扩展消息";
     switch (_teamListManager.team.type) {
         case NIMTeamTypeNormal:
-            info[@"postscript"] = @"邀请你加入讨论组";
+            info[@"postscript"] = @"邀请你加入讨论组".nim_localized;
             break;
         case NIMTeamTypeAdvanced:
-            info[@"postscript"] = @"邀请你加入高级群";
+            info[@"postscript"] = @"邀请你加入高级群".nim_localized;
             break;
         case NIMTeamTypeSuper:
-            info[@"postscript"] = @"邀请你加入超大群";
+            info[@"postscript"] = @"邀请你加入超大群".nim_localized;
             break;
         default:
             break;

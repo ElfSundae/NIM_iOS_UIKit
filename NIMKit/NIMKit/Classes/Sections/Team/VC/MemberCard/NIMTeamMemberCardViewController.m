@@ -60,7 +60,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"群名片";
+    self.navigationItem.title = @"群名片".nim_localized;
     [self.view addSubview:self.tableView];
     
     [self refreshData];
@@ -83,8 +83,8 @@
                                  SepLeftEdge   : @(SepLineLeft)
                                  };
     NSDictionary *nickItem = @{
-                               Title         : @"群昵称",
-                               DetailTitle   : (usrInfo.showName ?: @"未设置"),
+                               Title         : @"群昵称".nim_localized,
+                               DetailTitle   : (usrInfo.showName ?: @"未设置".nim_localized),
                                CellAction    : ([self isSelf] || [self canUpdateTeamMember])? @"updateTeamNick" : @"",
                                ShowAccessory : ([self isSelf] || [self canUpdateTeamMember])? @(YES) : @(NO),
                                RowHeight     : @(50),
@@ -92,7 +92,7 @@
                                };
     
     NSDictionary *userTypeItem = @{
-                                   Title         : @"身份",
+                                   Title         : @"身份".nim_localized,
                                    DetailTitle   : [NIMTeamHelper memberTypeText:self.member.userType],
                                    CellAction    : ([self isOwner] && ![self isSelf])? @"updateTeamRole" : @"",
                                    ShowAccessory : @([self canChangeUserType]),
@@ -101,8 +101,8 @@
                                    };
     
     NSDictionary *inviterAccidItem = @{
-                                       Title         : @"邀请人",
-                                       DetailTitle   : _member.inviterAccid ? (_member.inviterAccid.length ? _member.inviterAccid : _member.userId) : @"本地不存在",
+                                       Title         : @"邀请人".nim_localized,
+                                       DetailTitle   : _member.inviterAccid ? (_member.inviterAccid.length ? _member.inviterAccid : _member.userId) : @"本地不存在".nim_localized,
                                        CellAction    : @"",
                                        ShowAccessory : [self isOwner] && ![self isSelf]? @(YES) : @(NO),
                                        RowHeight     : @(50),
@@ -110,7 +110,7 @@
                                        };
     
     NSDictionary *isMuteItem =  @{
-                                  Title         : @"设置禁言",
+                                  Title         : @"设置禁言".nim_localized,
                                   CellClass     : @"NIMKitSwitcherCell",
                                   CellAction    : @"updateMute:",
                                   ForbidSelect  : @(YES),
@@ -121,7 +121,7 @@
                                   };
     
     NSDictionary *kickItem = @{
-                               Title         : @"移出本群",
+                               Title         : @"移出本群".nim_localized,
                                CellClass     : @"NIMKitColorButtonCell",
                                CellAction    : @"onKickBtnClick:",
                                ExtraInfo     : @(NIMKitColorButtonCellStyleRed),
@@ -156,20 +156,20 @@
 
 - (void)onKickBtnClick:(id)sender {
     _kickAlertView = [[UIAlertView alloc] initWithTitle:@""
-                                                message:@"移出本群"
+                                                message:@"移出本群".nim_localized
                                                delegate:self
-                                      cancelButtonTitle:@"取消"
-                                      otherButtonTitles:@"确定", nil];
+                                      cancelButtonTitle:@"取消".nim_localized
+                                      otherButtonTitles:@"确定".nim_localized, nil];
     [_kickAlertView show];
 }
 
 - (void)updateTeamNick
 {
     _updateNickAlertView = [[UIAlertView alloc] initWithTitle:@""
-                                                      message:@"修改群昵称"
+                                                      message:@"修改群昵称".nim_localized
                                                      delegate:self
-                                            cancelButtonTitle:@"取消"
-                                            otherButtonTitles:@"确认", nil];
+                                            cancelButtonTitle:@"取消".nim_localized
+                                            otherButtonTitles:@"确认".nim_localized, nil];
     _updateNickAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     [_updateNickAlertView show];
 }
@@ -179,11 +179,11 @@
     if (![self canChangeUserType]) {
         return;
     }
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"管理员操作"
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"管理员操作".nim_localized
                                                        delegate:self
-                                              cancelButtonTitle:@"取消"
+                                              cancelButtonTitle:@"取消".nim_localized
                                          destructiveButtonTitle:nil
-                                              otherButtonTitles: self.member.userType == NIMTeamMemberTypeManager ? @"取消管理员" : @"设为管理员", nil];
+                                              otherButtonTitles: self.member.userType == NIMTeamMemberTypeManager ? @"取消管理员".nim_localized : @"设为管理员".nim_localized, nil];
     [sheet showInView:self.view];
 }
 

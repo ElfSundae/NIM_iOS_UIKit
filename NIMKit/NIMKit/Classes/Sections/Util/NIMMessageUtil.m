@@ -8,6 +8,7 @@
 
 #import "NIMMessageUtil.h"
 #import <NIMSDK/NIMSDK.h>
+#import "NIMGlobalMacro.h"
 
 @implementation NIMMessageUtil
 
@@ -18,28 +19,28 @@
             text = message.text;
             break;
         case NIMMessageTypeAudio:
-            text = @"[语音]";
+            text = @"[语音]".nim_localized;
             break;
         case NIMMessageTypeImage:
-            text = @"[图片]";
+            text = @"[图片]".nim_localized;
             break;
         case NIMMessageTypeVideo:
-            text = @"[视频]";
+            text = @"[视频]".nim_localized;
             break;
         case NIMMessageTypeLocation:
-            text = @"[位置]";
+            text = @"[位置]".nim_localized;
             break;
         case NIMMessageTypeNotification:{
             return [self notificationMessageContent:message];
         }
         case NIMMessageTypeFile:
-            text = @"[文件]";
+            text = @"[文件]".nim_localized;
             break;
         case NIMMessageTypeTip:
             text = message.text;
             break;
         default:
-            text = @"[未知消息]";
+            text = @"[未知消息]".nim_localized;
     }
     return text;
 }
@@ -49,23 +50,23 @@
     if (object.notificationType == NIMNotificationTypeNetCall) {
         NIMNetCallNotificationContent *content = (NIMNetCallNotificationContent *)object.content;
         if (content.callType == NIMNetCallTypeAudio) {
-            return @"[网络通话]";
+            return @"[网络通话]".nim_localized;
         }
-        return @"[视频聊天]";
+        return @"[视频聊天]".nim_localized;
     }
     if (object.notificationType == NIMNotificationTypeTeam) {
         NIMTeam *team = [[NIMSDK sharedSDK].teamManager teamById:message.session.sessionId];
         if (team.type == NIMTeamTypeNormal) {
-            return @"[讨论组信息更新]";
+            return @"[讨论组信息更新]".nim_localized;
         }else{
-            return @"[群信息更新]";
+            return @"[群信息更新]".nim_localized;
         }
     }
     
     if (object.notificationType == NIMNotificationTypeSuperTeam) {
-        return @"[超大群信息更新]";
+        return @"[超大群信息更新]".nim_localized;
     }
-    return @"[未知消息]";
+    return @"[未知消息]".nim_localized;
 }
 
 @end

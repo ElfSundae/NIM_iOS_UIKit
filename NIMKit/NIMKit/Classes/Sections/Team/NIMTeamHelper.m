@@ -9,6 +9,7 @@
 #import "NIMTeamHelper.h"
 #import "NIMTeamCardRowItem.h"
 #import "UIImage+NIMKit.h"
+#import "NSString+NIMKit.h"
 
 static NSString *const kTeamHelperText = @"kTeamHelperText";
 static NSString *const kTeamHelperValue = @"kTeamHelperValue";
@@ -37,11 +38,11 @@ static NSString *const kTeamHelperValue = @"kTeamHelperValue";
 + (NSString *)jonModeText:(NIMTeamJoinMode)mode {
     switch (mode) {
         case NIMTeamJoinModeNoAuth:
-            return @"允许任何人";
+            return @"允许任何人".nim_localized;
         case NIMTeamJoinModeNeedAuth:
-            return @"需要验证";
+            return @"需要验证".nim_localized;
         case NIMTeamJoinModeRejectAll:
-            return @"拒绝任何人";
+            return @"拒绝任何人".nim_localized;
         default:
             return @"";
     }
@@ -69,11 +70,11 @@ static NSString *const kTeamHelperValue = @"kTeamHelperValue";
 + (NSString *)InviteModeText:(NIMTeamInviteMode)mode {
     switch (mode) {
         case NIMTeamInviteModeManager:
-            return @"管理员";
+            return @"管理员".nim_localized;
         case NIMTeamInviteModeAll:
-            return @"所有人";
+            return @"所有人".nim_localized;
         default:
-            return @"未知权限";
+            return @"未知权限".nim_localized;
     }
 }
 
@@ -99,11 +100,11 @@ static NSString *const kTeamHelperValue = @"kTeamHelperValue";
 + (NSString *)beInviteModeText:(NIMTeamBeInviteMode)mode {
     switch (mode) {
         case NIMTeamBeInviteModeNeedAuth:
-            return @"需要验证";
+            return @"需要验证".nim_localized;
         case NIMTeamBeInviteModeNoAuth:
-            return @"不需要验证";
+            return @"不需要验证".nim_localized;
         default:
-            return @"未知";
+            return @"未知".nim_localized;
     }
 }
 
@@ -129,11 +130,11 @@ static NSString *const kTeamHelperValue = @"kTeamHelperValue";
 + (NSString *)updateInfoModeText:(NIMTeamUpdateInfoMode)mode {
     switch (mode) {
         case NIMTeamUpdateInfoModeManager:
-            return @"管理员";
+            return @"管理员".nim_localized;
         case NIMTeamUpdateInfoModeAll:
-            return @"所有人";
+            return @"所有人".nim_localized;
         default:
-            return @"未知权限";
+            return @"未知权限".nim_localized;
     }
 }
 
@@ -177,13 +178,13 @@ static NSString *const kTeamHelperValue = @"kTeamHelperValue";
 + (NSString *)notifyStateText:(NIMTeamNotifyState)state {
     switch (state) {
         case NIMTeamNotifyStateAll:
-            return @"提醒所有消息";
+            return @"提醒所有消息".nim_localized;
         case NIMTeamNotifyStateNone:
-            return @"不提醒任何消息";
+            return @"不提醒任何消息".nim_localized;
         case NIMTeamNotifyStateOnlyManager:
-            return @"只提醒管理员消息";
+            return @"只提醒管理员消息".nim_localized;
         default:
-            return @"未知模式";
+            return @"未知模式".nim_localized;
     }
 }
 
@@ -210,7 +211,7 @@ static NSString *const kTeamHelperValue = @"kTeamHelperValue";
     return ret;
 }
 + (NSString *)teamMuteText:(BOOL)isMute {
-    return isMute ? @"开启" : @"关闭";
+    return isMute ? @"开启".nim_localized : @"关闭".nim_localized;
 }
 
 + (NSMutableArray<id <NIMKitSelectCardData>> *)teamMuteItemsWithSeleced:(BOOL)isMute {
@@ -221,13 +222,13 @@ static NSString *const kTeamHelperValue = @"kTeamHelperValue";
 + (NSString *)memberTypeText:(NIMTeamMemberType)type {
     switch (type) {
         case NIMTeamMemberTypeNormal:
-            return @"普通成员";
+            return @"普通成员".nim_localized;
         case NIMTeamMemberTypeOwner:
-            return @"群主";
+            return @"群主".nim_localized;
         case NIMTeamMemberTypeManager:
-            return @"管理员";
+            return @"管理员".nim_localized;
         default:
-            return @"未知";
+            return @"未知".nim_localized;
     }
 }
 

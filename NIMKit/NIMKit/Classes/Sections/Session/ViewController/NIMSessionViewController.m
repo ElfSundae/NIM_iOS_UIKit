@@ -451,7 +451,7 @@
         option.session = self.session;
         
         NSString *me = [[NIMKit sharedKit].provider infoByUser:[NIMSDK sharedSDK].loginManager.currentAccount option:option].showName;
-        apnsOption.apnsContent = [NSString stringWithFormat:@"%@在群里@了你",me];
+        apnsOption.apnsContent = [NSString stringWithFormat:@"%@在群里@了你".nim_localized, me];
         message.apnsMemberOption = apnsOption;
     }
     
@@ -598,10 +598,10 @@
         copyText = YES;
     }
     if (copyText) {
-        [items addObject:[[UIMenuItem alloc] initWithTitle:@"复制"
+        [items addObject:[[UIMenuItem alloc] initWithTitle:@"复制".nim_localized
                                                     action:@selector(copyText:)]];
     }
-    [items addObject:[[UIMenuItem alloc] initWithTitle:@"删除"
+    [items addObject:[[UIMenuItem alloc] initWithTitle:@"删除".nim_localized
                                                 action:@selector(deleteMsg:)]];
     
     

@@ -107,6 +107,21 @@ FOUNDATION_EXPORT const unsigned char NIMKitVersionString[];
 @property (nonatomic, copy) NSBundle *emoticonBundle;
 
 /**
+ *  NIMKit语言所在Bundle, 启动的时候根据系统语言会选择对应的语言包，后面用户可替换
+ */
+@property (nonatomic, strong) NSBundle * languageBundle;
+
+/**
+ *  NIMKit语言所在Table，默认 language
+ */
+@property (nonatomic, copy) NSString * languageTable;
+
+/**
+ *  NIMKit语言所在Table，默认 获取系统语言
+ */
+@property (nonatomic, copy) NSString * defaultLanguage;
+
+/**
  *  用户信息变更通知接口
  *
  *  @param userIds 用户 id 集合

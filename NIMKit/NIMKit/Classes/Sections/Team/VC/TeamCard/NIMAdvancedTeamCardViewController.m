@@ -76,20 +76,20 @@
     BOOL isManager  = self.teamListManager.myTeamInfo.type == NIMTeamMemberTypeManager;
     
     NIMTeamCardRowItem *teamMember = [[NIMTeamCardRowItem alloc] init];
-    teamMember.title  = @"群成员";
+    teamMember.title  = @"群成员".nim_localized;
     teamMember.rowHeight = 111.f;
     teamMember.action = @selector(enterMemberCard);
     teamMember.type   = TeamCardRowItemTypeTeamMember;
     
     NIMTeamCardRowItem *teamType = [[NIMTeamCardRowItem alloc] init];
-    teamType.title = @"群类型";
-    teamType.subTitle = @"高级群";
+    teamType.title = @"群类型".nim_localized;
+    teamType.subTitle = @"高级群".nim_localized;
     teamType.rowHeight = 50.f;
     teamType.type   = TeamCardRowItemTypeCommon;
     teamType.actionDisabled = YES;
     
     NIMTeamCardRowItem *teamName = [[NIMTeamCardRowItem alloc] init];
-    teamName.title = @"群名称";
+    teamName.title = @"群名称".nim_localized;
     teamName.subTitle = self.teamListManager.team.teamName;
     teamName.action = @selector(updateTeamName);
     teamName.rowHeight = 50.f;
@@ -97,30 +97,30 @@
     teamName.actionDisabled = !canEdit;
     
     NIMTeamCardRowItem *teamNick = [[NIMTeamCardRowItem alloc] init];
-    teamNick.title = @"群昵称";
+    teamNick.title = @"群昵称".nim_localized;
     teamNick.subTitle = self.teamListManager.myTeamInfo.nickname;
     teamNick.action = @selector(updateTeamNick);
     teamNick.rowHeight = 50.f;
     teamNick.type   = TeamCardRowItemTypeCommon;
 
     NIMTeamCardRowItem *teamIntro = [[NIMTeamCardRowItem alloc] init];
-    teamIntro.title = @"群介绍";
-    teamIntro.subTitle = self.teamListManager.team.intro.length ? self.teamListManager.team.intro : (canEdit ? @"点击填写群介绍" : @"");
+    teamIntro.title = @"群介绍".nim_localized;
+    teamIntro.subTitle = self.teamListManager.team.intro.length ? self.teamListManager.team.intro : (canEdit ? @"点击填写群介绍".nim_localized : @"");
     teamIntro.action = @selector(updateTeamIntro);
     teamIntro.rowHeight = 50.f;
     teamIntro.type   = TeamCardRowItemTypeCommon;
     teamIntro.actionDisabled = !canEdit;
     
     NIMTeamCardRowItem *teamAnnouncement = [[NIMTeamCardRowItem alloc] init];
-    teamAnnouncement.title = @"群公告";
-    teamAnnouncement.subTitle = @"点击查看群公告";
+    teamAnnouncement.title = @"群公告".nim_localized;
+    teamAnnouncement.subTitle = @"点击查看群公告".nim_localized;
     teamAnnouncement.action = @selector(updateTeamAnnouncement);
     teamAnnouncement.rowHeight = 50.f;
     teamAnnouncement.type   = TeamCardRowItemTypeCommon;
     
     BOOL inAllMuteMode = self.teamListManager.team.inAllMuteMode;
     NIMTeamCardRowItem *teamMute = [[NIMTeamCardRowItem alloc] init];
-    teamMute.title = @"群禁言";
+    teamMute.title = @"群禁言".nim_localized;
     teamMute.subTitle = [NIMTeamHelper teamMuteText:inAllMuteMode];
     teamMute.rowHeight = 50.f;
     teamMute.type = TeamCardRowItemTypeSelected;
@@ -131,13 +131,13 @@
     };
     
     NIMTeamCardRowItem *teamMuteList = [[NIMTeamCardRowItem alloc] init];
-    teamMuteList.title = @"禁言列表";
+    teamMuteList.title = @"禁言列表".nim_localized;
     teamMuteList.rowHeight = 50.f;
     teamMuteList.type = TeamCardRowItemTypeCommon;
     teamMuteList.action = @selector(enterMuteList);
 
     NIMTeamCardRowItem *teamNotify = [[NIMTeamCardRowItem alloc] init];
-    teamNotify.title  = @"消息提醒";
+    teamNotify.title  = @"消息提醒".nim_localized;
     teamNotify.subTitle = [NIMTeamHelper notifyStateText:self.teamListManager.team.notifyStateForNewMsg];
     teamNotify.rowHeight = 50.f;
     teamNotify.type = TeamCardRowItemTypeSelected;
@@ -147,19 +147,19 @@
     };
 
     NIMTeamCardRowItem *itemQuit = [[NIMTeamCardRowItem alloc] init];
-    itemQuit.title = @"退出高级群";
+    itemQuit.title = @"退出高级群".nim_localized;
     itemQuit.action = @selector(quitTeam);
     itemQuit.rowHeight = 60.f;
     itemQuit.type   = TeamCardRowItemTypeRedButton;
     
     NIMTeamCardRowItem *itemDismiss = [[NIMTeamCardRowItem alloc] init];
-    itemDismiss.title  = @"解散群聊";
+    itemDismiss.title  = @"解散群聊".nim_localized;
     itemDismiss.action = @selector(dismissTeam);
     itemDismiss.rowHeight = 60.f;
     itemDismiss.type   = TeamCardRowItemTypeRedButton;
     
     NIMTeamCardRowItem *itemAuth = [[NIMTeamCardRowItem alloc] init];
-    itemAuth.title  = @"身份验证";
+    itemAuth.title  = @"身份验证".nim_localized;
     itemAuth.subTitle = [NIMTeamHelper jonModeText:self.teamListManager.team.joinMode];
     itemAuth.actionDisabled = !canEdit;
     itemAuth.rowHeight = 60.f;
@@ -170,7 +170,7 @@
     };
     
     NIMTeamCardRowItem *itemInvite = [[NIMTeamCardRowItem alloc] init];
-    itemInvite.title  = @"邀请他人权限";
+    itemInvite.title  = @"邀请他人权限".nim_localized;
     itemInvite.subTitle = [NIMTeamHelper InviteModeText:self.teamListManager.team.inviteMode];
     itemInvite.actionDisabled = !canEdit;
     itemInvite.rowHeight = 60.f;
@@ -181,7 +181,7 @@
     };
     
     NIMTeamCardRowItem *itemUpdateInfo = [[NIMTeamCardRowItem alloc] init];
-    itemUpdateInfo.title  = @"群资料修改权限";
+    itemUpdateInfo.title  = @"群资料修改权限".nim_localized;
     itemUpdateInfo.subTitle = [NIMTeamHelper updateInfoModeText:self.teamListManager.team.updateInfoMode];
     itemUpdateInfo.actionDisabled = !canEdit;
     itemUpdateInfo.rowHeight = 60.f;
@@ -192,7 +192,7 @@
     };
     
     NIMTeamCardRowItem *itemBeInvite = [[NIMTeamCardRowItem alloc] init];
-    itemBeInvite.title  = @"被邀请人身份验证";
+    itemBeInvite.title  = @"被邀请人身份验证".nim_localized;
     itemBeInvite.subTitle = [NIMTeamHelper beInviteModeText:self.teamListManager.team.beInviteMode];
     itemBeInvite.actionDisabled = !canEdit;
     itemBeInvite.rowHeight = 60.f;
@@ -203,7 +203,7 @@
     };
     
     NIMTeamCardRowItem *itemTop = [[NIMTeamCardRowItem alloc] init];
-    itemTop.title            = @"聊天置顶";
+    itemTop.title            = @"聊天置顶".nim_localized;
     itemTop.switchOn         = self.option.isTop;
     itemTop.rowHeight        = 50.f;
     itemTop.type             = TeamCardRowItemTypeSwitch;
@@ -260,19 +260,19 @@
 #pragma mark - Actions
 - (void)onMore:(id)sender{
     __weak typeof(self) weakSelf = self;
-    UIAlertAction *action0 = [UIAlertAction actionWithTitle:@"转让群"
+    UIAlertAction *action0 = [UIAlertAction actionWithTitle:@"转让群".nim_localized
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * _Nonnull action) {
         [weakSelf didOntransferWithLeave:NO];
     }];
     
-    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"转让群并退出"
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"转让群并退出".nim_localized
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * _Nonnull action) {
         [weakSelf didOntransferWithLeave:YES];
     }];
     
-    UIAlertController *alert = [self makeAlertSheetWithTitle:@"请操作"
+    UIAlertController *alert = [self makeAlertSheetWithTitle:@"请操作".nim_localized
                                                      actions:@[action0, action1]];
     [self showAlert:alert];
 }
@@ -281,24 +281,24 @@
     if(![NIMKitUtil canEditTeamInfo:self.teamListManager.myTeamInfo])
         return ;
     __weak typeof(self) weakSelf = self;
-    UIAlertAction *action0 = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *action0 = [UIAlertAction actionWithTitle:@"拍照".nim_localized style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [weakSelf didUpdateTeamAvatarWithType:UIImagePickerControllerSourceTypeCamera];
     }];
     
-    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"从相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"从相册".nim_localized style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [weakSelf didUpdateTeamAvatarWithType:UIImagePickerControllerSourceTypePhotoLibrary];
     }];
     
-    UIAlertController *alert = [self makeAlertSheetWithTitle:@"设置群头像"
+    UIAlertController *alert = [self makeAlertSheetWithTitle:@"设置群头像".nim_localized
                                                      actions:@[action0, action1]];
     [self showAlert:alert];
 }
 
 - (void)updateTeamName{
     __weak typeof(self) weakSelf = self;
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改群名称" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改群名称".nim_localized message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:nil];
-    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确认".nim_localized style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UITextField *input = alert.textFields.firstObject;
         [weakSelf didUpdateTeamName:input.text];
     }];
@@ -309,9 +309,9 @@
 
 - (void)updateTeamNick{
     __weak typeof(self) weakSelf = self;
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改群昵称" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改群昵称".nim_localized message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:nil];
-    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确认".nim_localized style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UITextField *input = alert.textFields.firstObject;
         [weakSelf didUpdateTeamNick:input.text];
     }];
@@ -322,9 +322,9 @@
 
 - (void)updateTeamIntro{
     __weak typeof(self) weakSelf = self;
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改群介绍" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改群介绍".nim_localized message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:nil];
-    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确认".nim_localized style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UITextField *input = alert.textFields.firstObject;
         [weakSelf didUpdateTeamIntro:input.text];
     }];
@@ -345,8 +345,8 @@
 
 - (void)quitTeam {
     __weak typeof(self) weakSelf = self;
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认退出群聊?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认退出群聊?".nim_localized message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确认".nim_localized style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [weakSelf didQuitTeam];
     }];
     [alert addAction:sure];
@@ -356,8 +356,8 @@
 
 - (void)dismissTeam {
     __weak typeof(self) weakSelf = self;
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认解散群聊?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认解散群聊?".nim_localized message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确认".nim_localized style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [weakSelf didDismissTeam];
     }];
     [alert addAction:sure];

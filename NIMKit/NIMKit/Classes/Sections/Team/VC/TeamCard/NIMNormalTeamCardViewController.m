@@ -70,14 +70,15 @@
 - (NSArray <NSArray <NIMTeamCardRowItem *> *> *)buildBodyData{
 
     NIMTeamCardRowItem *itemName = [[NIMTeamCardRowItem alloc] init];
-    itemName.title            = @"讨论组名称";
+
+    itemName.title            = @"讨论组名称".nim_localized;
     itemName.subTitle         = self.teamListManager.team.teamName;
     itemName.action           = @selector(updateTeamInfoName);
     itemName.rowHeight        = 50.f;
     itemName.type             = TeamCardRowItemTypeCommon;
     
     NIMTeamCardRowItem *teamNotify = [[NIMTeamCardRowItem alloc] init];
-    teamNotify.title            = @"消息提醒";
+    teamNotify.title            = @"消息提醒".nim_localized;
     //普通群没有只接受管理员
     teamNotify.switchOn         = [self.teamListManager.team notifyStateForNewMsg] == NIMTeamNotifyStateAll;
     teamNotify.rowHeight        = 50.f;
@@ -85,13 +86,14 @@
     teamNotify.identify         = NIMTeamCardSwithCellTypeNotify;
 
     NIMTeamCardRowItem *itemQuit = [[NIMTeamCardRowItem alloc] init];
-    itemQuit.title            = @"退出讨论组";
+    itemQuit.title            = @"退出讨论组".nim_localized;
     itemQuit.action           = @selector(quitTeam);
     itemQuit.rowHeight        = 60.f;
     itemQuit.type             = TeamCardRowItemTypeRedButton;
     
     NIMTeamCardRowItem *itemTop = [[NIMTeamCardRowItem alloc] init];
-    itemTop.title            = @"聊天置顶";
+
+    itemTop.title            = @"聊天置顶".nim_localized;
     itemTop.switchOn         = self.option.isTop;
     itemTop.rowHeight        = 50.f;
     itemTop.type             = TeamCardRowItemTypeSwitch;
@@ -135,9 +137,9 @@
 #pragma mark - Actions
 - (void)updateTeamInfoName{
     __weak typeof(self) weakSelf = self;
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改讨论组名称" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改讨论组名称".nim_localized message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:nil];
-    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确认".nim_localized style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UITextField *input = alert.textFields.firstObject;
         [weakSelf didUpdateTeamName:input.text];
     }];
@@ -148,8 +150,8 @@
 
 - (void)quitTeam{
     __weak typeof(self) weakSelf = self;
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认退出讨论组?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确认退出讨论组?".nim_localized message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sure = [UIAlertAction actionWithTitle:@"确认".nim_localized style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [weakSelf didQuitTeam];
     }];
     [alert addAction:sure];

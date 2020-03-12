@@ -62,7 +62,7 @@
 }
 
 - (UIAlertAction *)makeCancelAction {
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消"
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消".nim_localized
                                                      style:UIAlertActionStyleCancel
                                                    handler:nil];
     return cancel;

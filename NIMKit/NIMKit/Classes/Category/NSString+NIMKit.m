@@ -8,6 +8,7 @@
 
 #import "NSString+NIMKit.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "NIMKit.h"
 
 @implementation NSString (NIMKit)
 
@@ -66,6 +67,20 @@
     BOOL isDir = NO;
     BOOL isExist = (![fm fileExistsAtPath:self isDirectory:&isDir] || isDir);
     return isExist;
+}
+
+- (NSString *)nim_localized {
+    NSString * result = [self nim_localizedWithTable:[NIMKit sharedKit].languageTable];
+    return result;
+}
+
+- (NSString *)nim_localizedWithTable:(NSString *)table {
+    NSBundle * languageBundle = [NIMKit sharedKit].languageBundle;
+    return [self nim_localizedByBundle:languageBundle table:table];
+}
+
+- (NSString *)nim_localizedByBundle:(NSBundle *)bundle table:(NSString *)table {
+    return NSLocalizedStringFromTableInBundle(self, nil, bundle, @"");
 }
 
 - (BOOL)nim_containsEmoji {

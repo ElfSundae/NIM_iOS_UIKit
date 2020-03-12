@@ -187,7 +187,7 @@
     [_toolBar.recordButton addTarget:self action:@selector(onTouchRecordBtnUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
     _toolBar.nim_size = [_toolBar sizeThatFits:CGSizeMake(self.nim_width, CGFLOAT_MAX)];
     _toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [_toolBar.recordButton setTitle:@"按住说话" forState:UIControlStateNormal];
+    [_toolBar.recordButton setTitle:@"按住说话".nim_localized forState:UIControlStateNormal];
     [_toolBar.recordButton setHidden:YES];
     
     //设置最大输入字数
@@ -342,9 +342,9 @@
                 else {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [[[UIAlertView alloc] initWithTitle:nil
-                                                    message:@"没有麦克风权限"
+                                                    message:@"没有麦克风权限".nim_localized
                                                    delegate:nil
-                                          cancelButtonTitle:@"确定"
+                                          cancelButtonTitle:@"确定".nim_localized
                                           otherButtonTitles:nil] show];
                     });
                 }

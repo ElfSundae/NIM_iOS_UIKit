@@ -62,7 +62,7 @@ NSString *const kTeamMemberInfo = @"kTeamMemberInfo";
     
     NSString *showName = (info.showName ?: @"");
     if ([user isMyUserId]) {
-        showName = @"我";
+        showName = @"我".nim_localized;
     }
     _titleLabel.text = showName;
     _roleImageView.image = [NIMTeamHelper imageWithMemberType:user.userType];
@@ -127,7 +127,7 @@ const CGFloat kNIMTeamMemberListCellItemPadding = 44.f;
         UIImage *addImage = [UIImage nim_imageInKit:@"icon_add_normal"];
         [view.imageView setImage:addImage];
         view.roleImageView.image = nil;
-        view.titleLabel.text = @"邀请";
+        view.titleLabel.text = @"邀请".nim_localized;
         count = 1;
     }
     self.addBtn.userInteractionEnabled = (count != 0);

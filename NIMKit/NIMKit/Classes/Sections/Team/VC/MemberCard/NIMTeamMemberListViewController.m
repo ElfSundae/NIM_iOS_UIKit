@@ -12,6 +12,8 @@
 #import "NIMTeamMemberCardViewController.h"
 #import "NIMKitDependency.h"
 #import "NIMKitProgressHUD.h"
+#import "NIMGlobalMacro.h"
+#import "NSString+NIMKit.h"
 
 #define CollectionCellReuseId @"cell"
 #define CollectionItemWidth  55
@@ -76,7 +78,7 @@ typedef void(^NIMTeamMemberListFetchDataBlock)(BOOL isCompletion);
     if (memberNumber%itemCountPerPage != 0) {
         _totalPageCount++;
     }
-    self.navigationItem.title = [NSString stringWithFormat:@"群成员(%d/%d页)", (int)_pageIndex+1, (int)_totalPageCount];
+    self.navigationItem.title = [NSString stringWithFormat:@"群成员(%d/%d页)".nim_localized, (int)_pageIndex+1, (int)_totalPageCount];
     _nextBtn.hidden = (_totalPageCount == 1 || _pageIndex == _totalPageCount - 1);
     _lastBtn.hidden = (_totalPageCount == 1 || _pageIndex == 0);
 }
@@ -84,13 +86,14 @@ typedef void(^NIMTeamMemberListFetchDataBlock)(BOOL isCompletion);
 - (void)setupUI {
     _nextBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     _nextBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
-    [_nextBtn setTitle:@"下一页" forState:UIControlStateNormal];
+    [_nextBtn setTitle:@"下一页".nim_localized forState:UIControlStateNormal];
     [_nextBtn addTarget:self action:@selector(nextPageAction:) forControlEvents:UIControlEventTouchUpInside];
     _nextBtn.frame = CGRectMake(0, 0, 40, 40);
     _nextBtn.hidden = YES;
     _lastBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     _lastBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
-    [_lastBtn setTitle:@"上一页" forState:UIControlStateNormal];
+
+    [_lastBtn setTitle:@"上一页".nim_localized forState:UIControlStateNormal];
     _lastBtn.frame = CGRectMake(0, 0, 40, 40);
     _lastBtn.hidden = YES;
     [_lastBtn addTarget:self action:@selector(lastPageAction:) forControlEvents:UIControlEventTouchUpInside];

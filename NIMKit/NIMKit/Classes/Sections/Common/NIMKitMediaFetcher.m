@@ -101,9 +101,9 @@
 
             if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied) {
                 [[[UIAlertView alloc] initWithTitle:nil
-                                            message:@"相册权限受限"
+                                            message:@"相册权限受限".nim_localized
                                            delegate:nil
-                                  cancelButtonTitle:@"确定"
+                                  cancelButtonTitle:@"确定".nim_localized
                                   otherButtonTitles:nil] show];
                 if(handler) handler(nil);
             }
@@ -336,9 +336,9 @@
 - (BOOL)initCamera{
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         [[[UIAlertView alloc] initWithTitle:nil
-                                    message:@"检测不到相机设备"
+                                    message:@"检测不到相机设备".nim_localized
                                    delegate:nil
-                          cancelButtonTitle:@"确定"
+                          cancelButtonTitle:@"确定".nim_localized
                           otherButtonTitles:nil] show];
         return NO;
     }
@@ -346,9 +346,9 @@
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
     if(authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied){
         [[[UIAlertView alloc] initWithTitle:nil
-                                    message:@"相机权限受限"
+                                    message:@"相机权限受限".nim_localized
                                    delegate:nil
-                          cancelButtonTitle:@"确定"
+                          cancelButtonTitle:@"确定".nim_localized
                           otherButtonTitles:nil] show];
         return NO;
         

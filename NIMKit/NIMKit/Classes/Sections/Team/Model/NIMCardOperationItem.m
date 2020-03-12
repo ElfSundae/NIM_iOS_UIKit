@@ -8,6 +8,7 @@
 
 #import "NIMCardOperationItem.h"
 #import "UIImage+NIMKit.h"
+#import "NIMGlobalMacro.h"
 
 @interface NIMCardOperationItem()
 
@@ -29,12 +30,12 @@
     _opera = opera;
     switch (opera) {
         case CardHeaderOpeatorAdd:
-            _title          = @"加入";
+            _title          = @"加入".nim_localized;
             _imageNormal    = [UIImage nim_imageInKit:@"icon_add_normal"];
             _imageHighLight = [UIImage nim_imageInKit:@"icon_add_pressed"];
             break;
         case CardHeaderOpeatorRemove:
-            _title          = @"移除";
+            _title          = @"移除".nim_localized;
             _imageNormal    = [UIImage nim_imageInKit:@"icon_remove_normal"];
             _imageHighLight = [UIImage nim_imageInKit:@"icon_remove_pressed"];
             break;

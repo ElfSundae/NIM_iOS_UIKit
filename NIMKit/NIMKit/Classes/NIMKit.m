@@ -74,6 +74,13 @@ extern NSString *const NIMKitTeamInfoHasUpdatedNotification;
     return _emoticonBundle;
 }
 
+- (NSBundle *)languageBundle {
+    if (!_languageBundle) {
+        _languageBundle = [NSBundle nim_defaultLanguageBundle];
+    }
+    return _languageBundle;
+}
+
 - (id<NIMCellLayoutConfig>)layoutConfig
 {
     return _layoutConfig;

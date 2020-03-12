@@ -11,6 +11,7 @@
 #import "UIView+NIM.h"
 #import "UIImage+NIMKit.h"
 #import "NIMTeamHelper.h"
+#import "NSString+NIMKit.h"
 
 @interface NIMCardHeaderCell()
 
@@ -50,7 +51,7 @@
 
     NSString *showName = data.title;
     if ([data isMyUserId]) {
-        showName = @"我";
+        showName = @"我".nim_localized;
     }
     self.titleLabel.text = showName;
     self.roleImageView.image = [NIMTeamHelper imageWithMemberType:data.userType];

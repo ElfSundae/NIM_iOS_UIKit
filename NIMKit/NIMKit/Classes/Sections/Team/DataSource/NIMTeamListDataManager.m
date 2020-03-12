@@ -7,6 +7,7 @@
 //
 
 #import "NIMTeamListDataManager.h"
+#import "NIMGlobalMacro.h"
 
 NSString *const kNIMTeamListDataTeamInfoUpdate = @"kNIMTeamListDataTeamInfoUpdate";
 NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembersChanged";
@@ -147,6 +148,7 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
                                                    teamType:_team.type];
 }
 
+
 - (void)updateMembersWithOption:(NIMMembersFetchOption *)option
                         members:(NSArray <NIMTeamMember *> *)members {
     if (!_members) {
@@ -187,11 +189,12 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
 - (void)handleUnsupport:(NIMTeamListDataBlock)completion {
     NSError *error = [NSError errorWithDomain:@"nimkit.teamlist.data"
                                          code:0x1000
-                                     userInfo:@{NSLocalizedDescriptionKey : @"超大群未开放该功能"}];
+                                     userInfo:@{NSLocalizedDescriptionKey : @"超大群未开放该功能".nim_localized}];
     if (completion) {
-        completion(error, @"超大群未开放该功能");
+        completion(error, @"超大群未开放该功能".nim_localized);
     }
 }
+
 
 - (void)handleAddUsers:(NSError *)error
               memebers:(NSArray<NIMTeamMember *> *)members
@@ -200,17 +203,17 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
     if (!error) {
         if (self.team.type == NIMTeamTypeNormal) { //高级群需要验证，普通群直接进
             [self addMembers:members];
-            msg = @"邀请成功";
+            msg = @"邀请成功".nim_localized;
         } else {
             if (self.team.beInviteMode == NIMTeamBeInviteModeNeedAuth) {
-                msg = @"邀请成功，等待验证";
+                msg = @"邀请成功，等待验证".nim_localized;
             } else {
                 [self addMembers:members];
-                msg = @"邀请成功";
+                msg = @"邀请成功".nim_localized;
             }
         }
     } else {
-        msg = [NSString stringWithFormat:@"邀请失败 code:%zd",error.code];
+        msg = [NSString stringWithFormat:@"邀请失败 code:%zd".nim_localized,error.code];
     }
     if (completion) {
         completion(error, msg);
@@ -224,7 +227,7 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
     if (!error) {
         [self removeMembers:userIds];
     } else {
-        msg = [NSString stringWithFormat:@"移除失败 code: %zd", error.code];
+        msg = [NSString stringWithFormat:@"移除失败 code: %zd".nim_localized, error.code];
     }
     if (completion) {
         completion(error, msg);
@@ -248,7 +251,7 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
                     completion:(NIMTeamListDataBlock)completion {
     NSString *msg = nil;
     if (error) {
-        msg = @"设置头像失败，请重试";
+        msg = @"设置头像失败，请重试".nim_localized;
     } else {
         self.team.avatarUrl = urlString;
     }
@@ -263,9 +266,9 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
     NSString *msg = nil;
     if (!error) {
         self.team.teamName = name;
-        msg = @"修改成功";
+        msg = @"修改成功".nim_localized;
     }else{
-        msg = [NSString stringWithFormat:@"修改失败 code:%zd",error.code];
+        msg = [NSString stringWithFormat:@"修改失败 code:%zd".nim_localized,error.code];
     }
     if (completion) {
         completion(error, msg);
@@ -278,9 +281,9 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
     NSString *msg = nil;
     if (!error) {
         self.myTeamInfo.nickname = nick;
-        msg = @"修改成功";
+        msg = @"修改成功".nim_localized;
     }else{
-        msg = [NSString stringWithFormat:@"修改失败 code:%zd",error.code];
+        msg = [NSString stringWithFormat:@"修改失败 code:%zd".nim_localized,error.code];
     }
     
     if (completion) {
@@ -294,9 +297,9 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
     NSString *msg = nil;
     if (!error) {
         self.team.intro = intro;
-        msg = @"修改成功";
+        msg = @"修改成功".nim_localized;
     }else{
-        msg = [NSString stringWithFormat:@"修改失败 code:%zd",error.code];
+        msg = [NSString stringWithFormat:@"修改失败 code:%zd".nim_localized,error.code];
     }
     if (completion) {
         completion(error, msg);
@@ -307,9 +310,9 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
                   completion:(NIMTeamListDataBlock)completion {
     NSString *msg = nil;
     if (!error) {
-        msg = @"修改成功";
+        msg = @"修改成功".nim_localized;
     }else{
-        msg = [NSString stringWithFormat:@"修改失败 code:%zd",error.code];
+        msg = [NSString stringWithFormat:@"修改失败 code:%zd".nim_localized,error.code];
     }
     if (completion) {
         completion(error, msg);
@@ -322,9 +325,9 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
     NSString *msg = nil;
     if (!error) {
         self.team.joinMode = mode;
-        msg = @"修改成功";
+        msg = @"修改成功".nim_localized;
     }else{
-        msg = [NSString stringWithFormat:@"修改失败 code:%zd",error.code];
+        msg = [NSString stringWithFormat:@"修改失败 code:%zd".nim_localized,error.code];
     }
     
     if (completion) {
@@ -338,9 +341,9 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
     NSString *msg = nil;
     if (!error) {
         self.team.inviteMode = mode;
-        msg = @"修改成功";
+        msg = @"修改成功".nim_localized;
     } else {
-        msg = [NSString stringWithFormat:@"修改失败 code:%zd",error.code];
+        msg = [NSString stringWithFormat:@"修改失败 code:%zd".nim_localized,error.code];
     }
     
     if (completion) {
@@ -354,9 +357,9 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
     NSString *msg = nil;
     if (!error) {
         self.team.updateInfoMode = mode;
-        msg = @"修改成功";
+        msg = @"修改成功".nim_localized;
     } else {
-        msg = [NSString stringWithFormat:@"修改失败 code:%zd",error.code];
+        msg = [NSString stringWithFormat:@"修改失败 code:%zd".nim_localized,error.code];
     }
     
     if (completion) {
@@ -370,9 +373,9 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
     NSString *msg = nil;
     if (!error) {
         self.team.beInviteMode = mode;
-        msg = @"修改成功";
+        msg = @"修改成功".nim_localized;
     }else{
-        msg = [NSString stringWithFormat:@"修改失败 code:%zd",error.code];
+        msg = [NSString stringWithFormat:@"修改失败 code:%zd".nim_localized,error.code];
     }
     
     if (completion) {
@@ -385,7 +388,7 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
                          completion:(NIMTeamListDataBlock)completion {
     __block NSString *msg = nil;
     if (error) {
-        msg = [NSString stringWithFormat:@"修改失败 code:%zd",error.code];
+        msg = [NSString stringWithFormat:@"修改失败 code:%zd".nim_localized,error.code];
     }
     if (completion) {
         completion(error, msg);
@@ -407,15 +410,17 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
                 }
             }];
         }
-        msg = @"修改成功";
+
+        msg = @"修改成功".nim_localized;
     }else{
-        msg = @"修改失败";
+        msg = @"修改失败".nim_localized;
     }
     
     if (completion) {
         completion(error, msg);
     }
 }
+
 
 - (void)handleRemoveManagers:(NSArray *)userIds
                        error:(NSError *)error
@@ -430,9 +435,9 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
                 }
             }];
         }
-        msg = @"修改成功";
+        msg = @"修改成功".nim_localized;
     }else{
-        msg = @"修改失败";
+        msg = @"修改失败".nim_localized;
     }
     if (completion) {
         completion(error, msg);
@@ -450,9 +455,9 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
         if (leave && userId) {
             [self removeMembers:@[userId]];
         }
-        msg = @"转移成功！";
+        msg = @"转移成功！".nim_localized;
     }else{
-        msg = [NSString stringWithFormat:@"转移失败！code:%zd",error.code];
+        msg = [NSString stringWithFormat:@"转移失败！code:%zd".nim_localized,error.code];
     }
                                                  
     if (completion) {
@@ -472,9 +477,9 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
                 *stop = YES;
             }
         }];
-        msg = @"修改成功";
+        msg = @"修改成功".nim_localized;
     }else{
-        msg = @"修改失败";
+        msg = @"修改失败".nim_localized;
     }
     if (completion) {
         completion(error, msg);
@@ -485,9 +490,9 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
                       completion:(NIMTeamListDataBlock)completion {
     NSString *msg = nil;
     if (!error) {
-        msg = @"修改成功";
+        msg = @"修改成功".nim_localized;
     }else{
-        msg = @"修改失败";
+        msg = @"修改失败".nim_localized;
     }
     if (completion) {
         completion(error, msg);
@@ -503,9 +508,9 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
         [self updateMembersWithOption:option members:members];
     } else if (error.code == NIMRemoteErrorCodeTeamNotMember
                || error.code == NIMRemoteErrorCodeNotInTeam) {
-        msg = @"你已经不在群里";
+        msg = @"你已经不在群里".nim_localized;
     } else {
-        msg = [NSString stringWithFormat:@"获取群成员失败 error: %zd",error.code];
+        msg = [NSString stringWithFormat:@"获取群成员失败 error: %zd".nim_localized,error.code];
     }
     if (completion) {
         completion(error, msg);
@@ -533,7 +538,7 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
              completion:(NIMTeamListDataBlock)completion {
     NSString *msg = nil;
     if (error) {
-        msg = [NSString stringWithFormat:@"操作失败 code:%zd",error.code];
+        msg = [NSString stringWithFormat:@"操作失败 code:%zd".nim_localized,error.code];
     }
     if (completion) {
         completion(error, msg);
@@ -599,7 +604,7 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
     NSString *teamId = _team.teamId;
     NSString *announcement = content ?: @"";
     __weak typeof(self) weakSelf = self;
-    
+
     if (_team.type == NIMTeamTypeSuper) {
         [[NIMSDK sharedSDK].superTeamManager updateTeamAnnouncement:announcement
                                                              teamId:teamId
@@ -640,7 +645,7 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
             }
         } else {
             if (block) {
-                block(error, @"图片上传失败，请重试");
+                block(error, @"图片上传失败，请重试".nim_localized);
             }
         }
     }];
@@ -650,7 +655,6 @@ NSString *const kNIMTeamListDataTeamMembersChanged = @"kNIMTeamListDataTeamMembe
             completion:(NIMTeamListDataBlock)block {
     NSString *teamId = _team.teamId;
     __weak typeof(self) weakSelf = self;
-    
     if (_team.type == NIMTeamTypeSuper) {
         [[NIMSDK sharedSDK].superTeamManager updateTeamName:name
                                                      teamId:teamId

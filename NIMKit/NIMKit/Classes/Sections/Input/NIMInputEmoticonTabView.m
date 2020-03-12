@@ -36,7 +36,7 @@ const CGFloat NIMInputLineBoarder = .5f;
         _seps = [[NSMutableArray alloc] init];
         
         _sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_sendButton setTitle:@"发送" forState:UIControlStateNormal];
+        [_sendButton setTitle:@"发送".nim_localized forState:UIControlStateNormal];
         _sendButton.titleLabel.font = [UIFont systemFontOfSize:13.f];
         [_sendButton setBackgroundColor:NIMKit_UIColorFromRGB(0x0079FF)];
         
