@@ -11,6 +11,7 @@
 #import "NIMContactSelectViewController.h"
 #import "NIMKitInfoFetchOption.h"
 #import "UIView+NIMToast.h"
+#import "NIMKit.h"
 
 @implementation NIMChatUIManager
 
