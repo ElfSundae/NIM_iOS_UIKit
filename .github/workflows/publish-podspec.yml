@@ -17,7 +17,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           pod repo add podspecs https://${PODREPO_GITHUB_API_TOKEN}@github.com/${PODREPO_GITHUB_REPOSITORY}.git
-          pod repo push podspecs --use-json
+          pod repo push podspecs --use-json --allow-warnings
         env:
           PODREPO_GITHUB_API_TOKEN: ${{ secrets.PODREPO_GITHUB_API_TOKEN }}
           PODREPO_GITHUB_REPOSITORY: ElfSundae/CocoaPods-Specs
