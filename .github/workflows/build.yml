@@ -1,0 +1,42 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache CocoaPods Repos
+        uses: actions/cache@v1
+        with:
+          path: ~/.cocoapods
+          key: ${{ runner.os }}-cocoapods-repos-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cocoapods-repos-
+            ${{ runner.os }}-cocoapods-
+
+      - name: Cache CocoaPods Pods
+        uses: actions/cache@v1
+        with:
+          path: ~/Library/Caches/CocoaPods
+          key: ${{ runner.os }}-cocoapods-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cocoapods-pods-
+            ${{ runner.os }}-cocoapods-
+
+      - name: Install Dependencies
+        run: pod install --project-directory=Example
+
+      - name: Build Example Project
+        run: |
+          set -o pipefail
+          xcodebuild clean build \
+            -workspace Example/DemoApplication.xcworkspace \
+            -scheme DemoApplication \
+            -configuration Release CODE_SIGN_IDENTITY=- \
+            -sdk iphonesimulator | xcpretty -c
+
+      - name: Lint Pod
+        run: pod lib lint --allow-warnings
