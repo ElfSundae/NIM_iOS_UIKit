@@ -180,6 +180,7 @@
 
 - (void)sendMessage:(NIMMessage *)message completion:(void(^)(NSError * err))completion
 {
+    __weak typeof(self) weakSelf = self;
     [self.interactor sendMessage:message
                         toMessage:nil
                       completion:^(NSError *err)
@@ -188,7 +189,7 @@
         {
             completion(err);
         }
-        [self cleanMenuMessage];
+        [weakSelf cleanMenuMessage];
     }];
 }
 
@@ -477,6 +478,8 @@
     NSString *numberStr = [array lastObject];
     NSInteger number = [numberStr integerValue];
     __block NIMQuickComment *newComment = [NIMCommentMaker commentWithType:number content:emoticon.tag ext:@"扩展"];
+    
+    __weak typeof(self) weakSelf = self;
     [self hadCommentThisMessage:self.messageForMenu type:number
                       compltion:^(NSMapTable *result)
      {
@@ -484,33 +487,33 @@
         BOOL contains = oldComment ? YES : NO;
         if (!contains)
         {
-            [self.interactor addQuickComment:newComment
+            [weakSelf.interactor addQuickComment:newComment
                                   completion:^(NSError *error)
             {
 //                [self.view hideToasts];
                 if (error)
                 {
-                    [self.view makeToast:@"操作失败".nim_localized duration:2 position:CSToastPositionCenter];
+                    [weakSelf.view makeToast:@"操作失败".nim_localized duration:2 position:CSToastPositionCenter];
                 }
                 
-                [self cleanMenuMessage];
-                [self.advanceMenu dismiss];
+                [weakSelf cleanMenuMessage];
+                [weakSelf.advanceMenu dismiss];
             }];
         }
         else
         {
-            [self.interactor delQuickComment:oldComment
-                               targetMessage:self.messageForMenu
-                                  completion:^(NSError *error)
+            [weakSelf.interactor delQuickComment:oldComment
+                                   targetMessage:weakSelf.messageForMenu
+                                      completion:^(NSError *error)
             {
 //                [self.view hideToasts];
                 if (error)
                 {
-                    [self.view makeToast:@"操作失败".nim_localized duration:2 position:CSToastPositionCenter];
+                    [weakSelf.view makeToast:@"操作失败".nim_localized duration:2 position:CSToastPositionCenter];
                 }
 
-                [self cleanMenuMessage];
-                [self.advanceMenu dismiss];
+                [weakSelf cleanMenuMessage];
+                [weakSelf.advanceMenu dismiss];
             }];
         }
     }];
@@ -641,6 +644,7 @@
                 comment:(NIMQuickComment *)comment
                selected:(BOOL)isSelected
 {
+    __weak typeof(self) weakSelf = self;
     if (isSelected)
     {
         [self.interactor delQuickComment:comment
@@ -652,7 +656,7 @@
             {
                 return;
             }
-            [self.view makeToast:@"操作失败".nim_localized duration:2 position:CSToastPositionCenter];
+            [weakSelf.view makeToast:@"操作失败".nim_localized duration:2 position:CSToastPositionCenter];
         }];
     }
     else
@@ -667,7 +671,7 @@
             {
                 return;
             }
-            [self.view makeToast:@"操作失败".nim_localized duration:2 position:CSToastPositionCenter];
+            [weakSelf.view makeToast:@"操作失败".nim_localized duration:2 position:CSToastPositionCenter];
         }];
     }
     
@@ -945,6 +949,10 @@
 - (void)refreshMessages
 {
     [self.interactor resetMessages:nil];
+}
+
+- (NSArray *)menusItems:(NIMMessage *)message {
+    return nil;
 }
 
 - (void)scrollToMessage:(NIMMessage *)message

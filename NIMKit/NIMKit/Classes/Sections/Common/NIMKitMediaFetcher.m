@@ -25,9 +25,9 @@
 
 @property (nonatomic,copy)   NIMKitCameraFetchResult  cameraResultHandler;
 
-@property (nonatomic,strong) UIImagePickerController  *imagePicker;
+@property (nonatomic,weak) UIImagePickerController  *imagePicker;
 
-@property (nonatomic,strong) NIMKitMediaPickerController  *assetsPicker;
+@property (nonatomic,weak) NIMKitMediaPickerController  *assetsPicker;
 
 @end
 
@@ -70,7 +70,7 @@
 #if TARGET_IPHONE_SIMULATOR
         NSAssert(0, @"not supported");
 #elif TARGET_OS_IPHONE
-        
+
         BOOL allowMovie = [_mediaTypes containsObject:(NSString *)kUTTypeMovie];
         BOOL allowPhoto = [_mediaTypes containsObject:(NSString *)kUTTypeImage];
         if (allowMovie && !allowPhoto) {
@@ -108,14 +108,14 @@
                 if(handler) handler(nil);
             }
             if (status == PHAuthorizationStatusAuthorized) {
-                NIMKitMediaPickerController *vc = [[NIMKitMediaPickerController alloc] initWithMaxImagesCount:strongSelf.limit delegate:strongSelf];
+                NIMKitMediaPickerController *vc = [[NIMKitMediaPickerController alloc] initWithMaxImagesCount:weakSelf.limit delegate:weakSelf];
                 vc.naviBgColor = [UIColor blackColor];
                 vc.naviTitleColor = [UIColor whiteColor];
                 vc.barItemTextColor = [UIColor whiteColor];
                 vc.navigationBar.barStyle = UIBarStyleDefault;
-                vc.allowPickingVideo = [strongSelf.mediaTypes containsObject:(NSString *)kUTTypeMovie];
-                vc.allowPickingImage = [strongSelf.mediaTypes containsObject:(NSString *)kUTTypeImage];
-                vc.allowPickingGif = [strongSelf.mediaTypes containsObject:(NSString *)kUTTypeGIF];
+                vc.allowPickingVideo = [weakSelf.mediaTypes containsObject:(NSString *)kUTTypeMovie];
+                vc.allowPickingImage = [weakSelf.mediaTypes containsObject:(NSString *)kUTTypeImage];
+                vc.allowPickingGif = [weakSelf.mediaTypes containsObject:(NSString *)kUTTypeGIF];
                 if(handler) handler(vc);
             }
         });
@@ -126,7 +126,8 @@
 {
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
-        
+
+        __weak typeof(self) weakSelf = self;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSURL *inputURL  = [info objectForKey:UIImagePickerControllerMediaURL];
             NSString *outputFileName = [NIMKitFileLocationHelper genFilenameWithExt:@"mp4"];
@@ -141,31 +142,31 @@
             [session exportAsynchronouslyWithCompletionHandler:^(void)
              {
                  dispatch_async(dispatch_get_main_queue(), ^{
-                     if (!self.cameraResultHandler)
+                     if (!weakSelf.cameraResultHandler)
                      {
                          return;
                      }
-                     
+
                      if (session.status == AVAssetExportSessionStatusCompleted)
                      {
-                         self.cameraResultHandler(outputPath,nil);
+                         weakSelf.cameraResultHandler(outputPath,nil);
                      }
                      else
                      {
-                         self.cameraResultHandler(nil,nil);
+                         weakSelf.cameraResultHandler(nil,nil);
                      }
-                     self.cameraResultHandler = nil;
+                     weakSelf.cameraResultHandler = nil;
                  });
              }];
-            
+
         });
-        
+
     } else {
         if (!self.cameraResultHandler)
         {
             return;
         }
-        
+
         UIImage *image = info[UIImagePickerControllerOriginalImage];
         image = [image nim_fixOrientation];
         self.cameraResultHandler(nil,image);
@@ -204,7 +205,7 @@
     if (!assets.count) {
         return;
     }
-    
+
     __weak typeof(self) weakSelf = self;
     [NIMKitProgressHUD show];
     [self requestAsset:assets.firstObject handler:^(NSString *path, PHAssetMediaType type) {
@@ -217,19 +218,19 @@
             [assets removeObjectAtIndex:0];
             [weakSelf requestAssets:assets];
         })
-        
+
     }];
 }
 
 - (void)requestAsset:(PHAsset *)asset handler:(void(^)(NSString *,PHAssetMediaType)) handler
 {
     if (asset.mediaType == PHAssetMediaTypeVideo) {
-        
+
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
             options.version = PHVideoRequestOptionsVersionCurrent;
             options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
-            
+
             [PHImageManager.defaultManager requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
                 AVURLAsset *URLAsset = (AVURLAsset *)asset;
                 NSString *outputFileName = [NIMKitFileLocationHelper genFilenameWithExt:@"mp4"];
@@ -242,7 +243,7 @@
             }];
         });
     }
-    
+
     if (asset.mediaType == PHAssetMediaTypeImage)
     {
         [asset requestContentEditingInputWithOptions:nil completionHandler:^(PHContentEditingInput * _Nullable contentEditingInput, NSDictionary * _Nonnull info) {
@@ -250,7 +251,7 @@
             handler(path,contentEditingInput.mediaType);
         }];
     }
-    
+
 }
 
 #pragma mark - Private
@@ -275,7 +276,7 @@
     }
     composition.naturalSize     = videoSize;
     videoComposition.renderSize = videoSize;
-    
+
     videoComposition.frameDuration = CMTimeMakeWithSeconds( 1 / videoTrack.nominalFrameRate, 600);
     AVMutableCompositionTrack *compositionVideoTrack;
     compositionVideoTrack = [composition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
@@ -296,7 +297,7 @@
     NSArray *tracks = [asset tracksWithMediaType:AVMediaTypeVideo];
     if([tracks    count] > 0) {
         AVAssetTrack *videoTrack = [tracks objectAtIndex:0];
-        
+
         CGAffineTransform t = videoTrack.preferredTransform;
         // Portrait
         if(t.a == 0 && t.b == 1.0 && t.c == -1.0 && t.d == 0)
@@ -305,7 +306,7 @@
         }
         // PortraitUpsideDown
         if(t.a == 0 && t.b == -1.0 && t.c == 1.0 && t.d == 0)  {
-            
+
             isPortrait = YES;
         }
         // LandscapeRight
@@ -340,7 +341,7 @@
                           cancelButtonTitle:@"确定".nim_localized
                           otherButtonTitles:nil] show];
         return NO;
-        
+
     }
     self.imagePicker = [[UIImagePickerController alloc] init];
     self.imagePicker.delegate = self;
@@ -353,10 +354,11 @@
     PHImageRequestOptions *option = [[PHImageRequestOptions alloc]init];
     option.networkAccessAllowed = YES;
     option.synchronous = YES;
+    __weak typeof(self) weakSelf = self;
     [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeAspectFit options:option resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);
         if (downloadFinined && result) {
-            result = [self fixOrientation:result];
+            result = [weakSelf fixOrientation:result];
             BOOL isDegraded = [[info objectForKey:PHImageResultIsDegradedKey] boolValue];
             if (completion) completion(result,info,isDegraded);
         }
@@ -366,28 +368,28 @@
 
 /// 修正图片转向
 - (UIImage *)fixOrientation:(UIImage *)aImage {
-    
+
     // No-op if the orientation is already correct
     if (aImage.imageOrientation == UIImageOrientationUp)
         return aImage;
-    
+
     // We need to calculate the proper transformation to make the image upright.
     // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
     CGAffineTransform transform = CGAffineTransformIdentity;
-    
+
     switch (aImage.imageOrientation) {
         case UIImageOrientationDown:
         case UIImageOrientationDownMirrored:
             transform = CGAffineTransformTranslate(transform, aImage.size.width, aImage.size.height);
             transform = CGAffineTransformRotate(transform, M_PI);
             break;
-            
+
         case UIImageOrientationLeft:
         case UIImageOrientationLeftMirrored:
             transform = CGAffineTransformTranslate(transform, aImage.size.width, 0);
             transform = CGAffineTransformRotate(transform, M_PI_2);
             break;
-            
+
         case UIImageOrientationRight:
         case UIImageOrientationRightMirrored:
             transform = CGAffineTransformTranslate(transform, 0, aImage.size.height);
@@ -396,14 +398,14 @@
         default:
             break;
     }
-    
+
     switch (aImage.imageOrientation) {
         case UIImageOrientationUpMirrored:
         case UIImageOrientationDownMirrored:
             transform = CGAffineTransformTranslate(transform, aImage.size.width, 0);
             transform = CGAffineTransformScale(transform, -1, 1);
             break;
-            
+
         case UIImageOrientationLeftMirrored:
         case UIImageOrientationRightMirrored:
             transform = CGAffineTransformTranslate(transform, aImage.size.height, 0);
@@ -412,7 +414,7 @@
         default:
             break;
     }
-    
+
     // Now we draw the underlying CGImage into a new context, applying the transform
     // calculated above.
     CGContextRef ctx = CGBitmapContextCreate(NULL, aImage.size.width, aImage.size.height,
@@ -428,12 +430,12 @@
             // Grr...
             CGContextDrawImage(ctx, CGRectMake(0,0,aImage.size.height,aImage.size.width), aImage.CGImage);
             break;
-            
+
         default:
             CGContextDrawImage(ctx, CGRectMake(0,0,aImage.size.width,aImage.size.height), aImage.CGImage);
             break;
     }
-    
+
     // And now we just create a new UIImage from the drawing context
     CGImageRef cgimg = CGBitmapContextCreateImage(ctx);
     UIImage *img = [UIImage imageWithCGImage:cgimg];
