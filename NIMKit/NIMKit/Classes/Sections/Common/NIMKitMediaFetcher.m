@@ -25,10 +25,6 @@
 
 @property (nonatomic,copy)   NIMKitCameraFetchResult  cameraResultHandler;
 
-@property (nonatomic,weak) UIImagePickerController  *imagePicker;
-
-@property (nonatomic,weak) NIMKitMediaPickerController  *assetsPicker;
-
 @end
 
 @implementation NIMKitMediaFetcher
@@ -48,7 +44,6 @@
     __weak typeof(self) weakSelf = self;
     [self setUpPhotoLibrary:^(NIMKitMediaPickerController * _Nullable picker) {
         if (picker && weakSelf) {
-            weakSelf.assetsPicker = picker;
             weakSelf.libraryResultHandler = result;
             UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
             picker.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -65,29 +60,33 @@
 
 - (void)fetchMediaFromCamera:(NIMKitCameraFetchResult)result
 {
-    if ([self initCamera]) {
+    [self initCamera:^(UIImagePickerController * _Nullable imagePicker) {
+        if (!imagePicker) {
+            return;
+        }
+
         self.cameraResultHandler = result;
 #if TARGET_IPHONE_SIMULATOR
         NSAssert(0, @"not supported");
 #elif TARGET_OS_IPHONE
-
-        BOOL allowMovie = [_mediaTypes containsObject:(NSString *)kUTTypeMovie];
-        BOOL allowPhoto = [_mediaTypes containsObject:(NSString *)kUTTypeImage];
+        
+        BOOL allowMovie = [self.mediaTypes containsObject:(NSString *)kUTTypeMovie];
+        BOOL allowPhoto = [self.mediaTypes containsObject:(NSString *)kUTTypeImage];
         if (allowMovie && !allowPhoto) {
-            self.imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+            imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
         } else {
-            self.imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+            imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
         }
-        self.imagePicker.videoQuality = UIImagePickerControllerQualityTypeHigh;
+        imagePicker.videoQuality = UIImagePickerControllerQualityTypeHigh;
         UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
         rootVC.modalPresentationStyle = UIModalPresentationFullScreen;
         if (rootVC.presentedViewController) {
-            [rootVC.presentedViewController presentViewController:self.imagePicker animated:YES completion:nil];
+            [rootVC.presentedViewController presentViewController:imagePicker animated:YES completion:nil];
         } else {
-            [rootVC presentViewController:self.imagePicker animated:YES completion:nil];
+            [rootVC presentViewController:imagePicker animated:YES completion:nil];
         }
 #endif
-    }
+    }];
 }
 
 
@@ -96,9 +95,6 @@
     __weak typeof(self) weakSelf = self;
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status){
         dispatch_async(dispatch_get_main_queue(), ^{
-            typeof(weakSelf) strongSelf = weakSelf;
-            if (!strongSelf) return;
-
             if (status == PHAuthorizationStatusRestricted || status == PHAuthorizationStatusDenied) {
                 [[[UIAlertView alloc] initWithTitle:nil
                                             message:@"相册权限受限".nim_localized
@@ -126,7 +122,7 @@
 {
     NSString *mediaType = info[UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
-
+        
         __weak typeof(self) weakSelf = self;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSURL *inputURL  = [info objectForKey:UIImagePickerControllerMediaURL];
@@ -146,7 +142,7 @@
                      {
                          return;
                      }
-
+                     
                      if (session.status == AVAssetExportSessionStatusCompleted)
                      {
                          weakSelf.cameraResultHandler(outputPath,nil);
@@ -158,15 +154,15 @@
                      weakSelf.cameraResultHandler = nil;
                  });
              }];
-
+            
         });
-
+        
     } else {
         if (!self.cameraResultHandler)
         {
             return;
         }
-
+        
         UIImage *image = info[UIImagePickerControllerOriginalImage];
         image = [image nim_fixOrientation];
         self.cameraResultHandler(nil,image);
@@ -205,7 +201,7 @@
     if (!assets.count) {
         return;
     }
-
+    
     __weak typeof(self) weakSelf = self;
     [NIMKitProgressHUD show];
     [self requestAsset:assets.firstObject handler:^(NSString *path, PHAssetMediaType type) {
@@ -218,19 +214,19 @@
             [assets removeObjectAtIndex:0];
             [weakSelf requestAssets:assets];
         })
-
+        
     }];
 }
 
 - (void)requestAsset:(PHAsset *)asset handler:(void(^)(NSString *,PHAssetMediaType)) handler
 {
     if (asset.mediaType == PHAssetMediaTypeVideo) {
-
+        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             PHVideoRequestOptions *options = [[PHVideoRequestOptions alloc] init];
             options.version = PHVideoRequestOptionsVersionCurrent;
             options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
-
+            
             [PHImageManager.defaultManager requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
                 AVURLAsset *URLAsset = (AVURLAsset *)asset;
                 NSString *outputFileName = [NIMKitFileLocationHelper genFilenameWithExt:@"mp4"];
@@ -243,7 +239,7 @@
             }];
         });
     }
-
+    
     if (asset.mediaType == PHAssetMediaTypeImage)
     {
         [asset requestContentEditingInputWithOptions:nil completionHandler:^(PHContentEditingInput * _Nullable contentEditingInput, NSDictionary * _Nonnull info) {
@@ -251,18 +247,10 @@
             handler(path,contentEditingInput.mediaType);
         }];
     }
-
+    
 }
 
 #pragma mark - Private
-
-- (void)setMediaTypes:(NSArray *)mediaTypes
-{
-    _mediaTypes = mediaTypes;
-    _imagePicker.mediaTypes = mediaTypes;
-    _assetsPicker.allowPickingVideo = [mediaTypes containsObject:(NSString *)kUTTypeMovie];
-    _assetsPicker.allowPickingImage = [mediaTypes containsObject:(NSString *)kUTTypeImage];
-}
 
 - (AVMutableVideoComposition *)getVideoComposition:(AVAsset *)asset
 {
@@ -276,7 +264,7 @@
     }
     composition.naturalSize     = videoSize;
     videoComposition.renderSize = videoSize;
-
+    
     videoComposition.frameDuration = CMTimeMakeWithSeconds( 1 / videoTrack.nominalFrameRate, 600);
     AVMutableCompositionTrack *compositionVideoTrack;
     compositionVideoTrack = [composition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
@@ -297,7 +285,7 @@
     NSArray *tracks = [asset tracksWithMediaType:AVMediaTypeVideo];
     if([tracks    count] > 0) {
         AVAssetTrack *videoTrack = [tracks objectAtIndex:0];
-
+        
         CGAffineTransform t = videoTrack.preferredTransform;
         // Portrait
         if(t.a == 0 && t.b == 1.0 && t.c == -1.0 && t.d == 0)
@@ -306,7 +294,7 @@
         }
         // PortraitUpsideDown
         if(t.a == 0 && t.b == -1.0 && t.c == 1.0 && t.d == 0)  {
-
+            
             isPortrait = YES;
         }
         // LandscapeRight
@@ -323,15 +311,17 @@
     return isPortrait;
 }
 
-- (BOOL)initCamera{
+- (void)initCamera:(void (^)(UIImagePickerController * _Nullable imagePicker))handler {
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         [[[UIAlertView alloc] initWithTitle:nil
                                     message:@"检测不到相机设备".nim_localized
                                    delegate:nil
                           cancelButtonTitle:@"确定".nim_localized
                           otherButtonTitles:nil] show];
-        return NO;
+        handler(nil);
+        return;
     }
+
     NSString *mediaType = AVMediaTypeVideo;
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
     if(authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied){
@@ -340,14 +330,15 @@
                                    delegate:nil
                           cancelButtonTitle:@"确定".nim_localized
                           otherButtonTitles:nil] show];
-        return NO;
-
+        handler(nil);
+        return;
     }
-    self.imagePicker = [[UIImagePickerController alloc] init];
-    self.imagePicker.delegate = self;
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    self.imagePicker.mediaTypes = self.mediaTypes;
-    return YES;
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    imagePicker.mediaTypes = self.mediaTypes;
+    handler(imagePicker);
 }
 
 - (void)originalPhotoWithAsset:(id)asset completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion {
@@ -368,28 +359,28 @@
 
 /// 修正图片转向
 - (UIImage *)fixOrientation:(UIImage *)aImage {
-
+    
     // No-op if the orientation is already correct
     if (aImage.imageOrientation == UIImageOrientationUp)
         return aImage;
-
+    
     // We need to calculate the proper transformation to make the image upright.
     // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
     CGAffineTransform transform = CGAffineTransformIdentity;
-
+    
     switch (aImage.imageOrientation) {
         case UIImageOrientationDown:
         case UIImageOrientationDownMirrored:
             transform = CGAffineTransformTranslate(transform, aImage.size.width, aImage.size.height);
             transform = CGAffineTransformRotate(transform, M_PI);
             break;
-
+            
         case UIImageOrientationLeft:
         case UIImageOrientationLeftMirrored:
             transform = CGAffineTransformTranslate(transform, aImage.size.width, 0);
             transform = CGAffineTransformRotate(transform, M_PI_2);
             break;
-
+            
         case UIImageOrientationRight:
         case UIImageOrientationRightMirrored:
             transform = CGAffineTransformTranslate(transform, 0, aImage.size.height);
@@ -398,14 +389,14 @@
         default:
             break;
     }
-
+    
     switch (aImage.imageOrientation) {
         case UIImageOrientationUpMirrored:
         case UIImageOrientationDownMirrored:
             transform = CGAffineTransformTranslate(transform, aImage.size.width, 0);
             transform = CGAffineTransformScale(transform, -1, 1);
             break;
-
+            
         case UIImageOrientationLeftMirrored:
         case UIImageOrientationRightMirrored:
             transform = CGAffineTransformTranslate(transform, aImage.size.height, 0);
@@ -414,7 +405,7 @@
         default:
             break;
     }
-
+    
     // Now we draw the underlying CGImage into a new context, applying the transform
     // calculated above.
     CGContextRef ctx = CGBitmapContextCreate(NULL, aImage.size.width, aImage.size.height,
@@ -430,12 +421,12 @@
             // Grr...
             CGContextDrawImage(ctx, CGRectMake(0,0,aImage.size.height,aImage.size.width), aImage.CGImage);
             break;
-
+            
         default:
             CGContextDrawImage(ctx, CGRectMake(0,0,aImage.size.width,aImage.size.height), aImage.CGImage);
             break;
     }
-
+    
     // And now we just create a new UIImage from the drawing context
     CGImageRef cgimg = CGBitmapContextCreateImage(ctx);
     UIImage *img = [UIImage imageWithCGImage:cgimg];
