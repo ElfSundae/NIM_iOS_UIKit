@@ -1,8 +1,8 @@
 # 网易云信 UI 组件 	· iOS
 [![Build status](https://github.com/ElfSundae/NIM_iOS_UIKit/workflows/Build/badge.svg)](https://github.com/ElfSundae/NIM_iOS_UIKit/actions?query=workflow%3ABuild)
-[![Pod Version](https://img.shields.io/cocoapods/v/NIMKit.svg?style=flat)](#)
+[![Pod Version](https://img.shields.io/github/v/tag/ElfSundae/NIM_iOS_UIKit?label=pod)](#)
 [![Pod Platform](http://img.shields.io/cocoapods/p/NIMKit.svg?style=flat)](#)
-[![Minimum Requirement](http://img.shields.io/badge/Requirement-iOS%208.0%2B-green.svg?style=flat)](#)
+[![Minimum Requirement](http://img.shields.io/badge/Requirement-iOS%209.0%2B-green.svg?style=flat)](#)
 [![LICENSE](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](./LICENSE)
 
 > **:warning: This is a patched version of [NIMKit](https://github.com/netease-im/NIM_iOS_UIKit).**
