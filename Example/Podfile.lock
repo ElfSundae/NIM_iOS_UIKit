@@ -1,9 +1,9 @@
 PODS:
   - FLAnimatedImage (1.0.12)
   - M80AttributedLabel (1.9.9)
-  - NIMKit (2.13.301):
-    - NIMKit/Lite (= 2.13.301)
-  - NIMKit/Core (2.13.301):
+  - NIMKit (2.13.600):
+    - NIMKit/Lite (= 2.13.600)
+  - NIMKit/Core (2.13.600):
     - FLAnimatedImage (~> 1.0)
     - M80AttributedLabel (~> 1.9)
     - SDWebImage (~> 5.1)
@@ -12,15 +12,15 @@ PODS:
     - UICollectionViewLeftAlignedLayout (~> 1.0)
     - YYImage (~> 1.0)
     - YYImage/WebP
-  - NIMKit/Lite (2.13.301):
+  - NIMKit/Lite (2.13.600):
     - NIMKit/Core
-    - NIMSDK_LITE (~> 7.8.3)
-  - NIMSDK_LITE (7.8.3)
+    - NIMSDK_LITE (~> 7.8.5)
+  - NIMSDK_LITE (7.8.5)
   - SDWebImage (5.8.4):
     - SDWebImage/Core (= 5.8.4)
   - SDWebImage/Core (5.8.4)
   - Toast (4.0.0)
-  - TZImagePickerController (3.4.1)
+  - TZImagePickerController (3.4.2)
   - UICollectionViewLeftAlignedLayout (1.0.2)
   - YYImage (1.0.4):
     - YYImage/Core (= 1.0.4)
@@ -49,11 +49,11 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   M80AttributedLabel: 77fedfe63804c989a6de0fa4d400ea8cad3ab441
-  NIMKit: a30b457443b1af2363581fc1432346d085ded170
-  NIMSDK_LITE: 532107e540071a7c28b647dd45fcf109b2ca9f16
+  NIMKit: b11a5ea930a795f8e288f49e24532b9c4b3457a2
+  NIMSDK_LITE: 344fef2962b9c604479da6ca0dc57e9181101777
   SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
-  TZImagePickerController: 4e7a7b3d314f8a75f11042931dfd9d34c270c7db
+  TZImagePickerController: cc0b74d5f01ab4cddcc24dcdfc3c7d68e6261056
   UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
 

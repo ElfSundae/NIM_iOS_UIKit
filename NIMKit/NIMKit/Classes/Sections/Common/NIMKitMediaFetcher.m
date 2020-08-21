@@ -60,24 +60,13 @@
 
 - (void)fetchMediaFromCamera:(NIMKitCameraFetchResult)result
 {
-    [self initCamera:^(UIImagePickerController * _Nullable imagePicker) {
-        if (!imagePicker) {
-            return;
-        }
-
+    if ([self initCamera]) {
         self.cameraResultHandler = result;
 #if TARGET_IPHONE_SIMULATOR
         NSAssert(0, @"not supported");
 #elif TARGET_OS_IPHONE
         
-        BOOL allowMovie = [self.mediaTypes containsObject:(NSString *)kUTTypeMovie];
-        BOOL allowPhoto = [self.mediaTypes containsObject:(NSString *)kUTTypeImage];
-        if (allowMovie && !allowPhoto) {
-            imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
-        } else {
-            imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
-        }
-        imagePicker.videoQuality = UIImagePickerControllerQualityTypeHigh;
+        UIImagePickerController *imagePicker = [self setupImagePicker];
         UIViewController *rootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
         rootVC.modalPresentationStyle = UIModalPresentationFullScreen;
         if (rootVC.presentedViewController) {
@@ -86,7 +75,24 @@
             [rootVC presentViewController:imagePicker animated:YES completion:nil];
         }
 #endif
-    }];
+    }
+}
+
+- (UIImagePickerController *)setupImagePicker {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    imagePicker.mediaTypes = self.mediaTypes;
+    
+    BOOL allowMovie = [_mediaTypes containsObject:(NSString *)kUTTypeMovie];
+    BOOL allowPhoto = [_mediaTypes containsObject:(NSString *)kUTTypeImage];
+    if (allowMovie && !allowPhoto) {
+        imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+    } else {
+        imagePicker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+    }
+    imagePicker.videoQuality = UIImagePickerControllerQualityTypeHigh;
+    return imagePicker;
 }
 
 
@@ -214,7 +220,6 @@
             [assets removeObjectAtIndex:0];
             [weakSelf requestAssets:assets];
         })
-        
     }];
 }
 
@@ -227,12 +232,35 @@
             options.version = PHVideoRequestOptionsVersionCurrent;
             options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
             
-            [PHImageManager.defaultManager requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
-                AVURLAsset *URLAsset = (AVURLAsset *)asset;
-                NSString *outputFileName = [NIMKitFileLocationHelper genFilenameWithExt:@"mp4"];
-                NSString *outputPath = [NIMKitFileLocationHelper filepathForVideo:outputFileName];
-                NSError *error;
-                [NSFileManager.defaultManager copyItemAtURL:URLAsset.URL toURL:[NSURL fileURLWithPath:outputPath] error:&error];
+            [PHImageManager.defaultManager requestAVAssetForVideo:asset options:options resultHandler:^(AVAsset * _Nullable assetR, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+                NSError *error = nil;
+                NSString *outputPath = nil;
+                if ([[info objectForKey:PHImageResultIsInCloudKey] boolValue]) {
+                    outputPath = nil;
+                    error = [NSError errorWithDomain:@"nimdemo.netease.fetcher" code:0x1000 userInfo:@{NSLocalizedDescriptionKey:@"图片在iCloud上"}];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[UIApplication sharedApplication].keyWindow makeToast:@"文件在iCloud上，无法发送"
+                                                                      duration:2
+                                                                      position:CSToastPositionCenter];
+                    });
+                } else {
+                    AVURLAsset *URLAsset = (AVURLAsset *)assetR;
+                    NSString *outputFileName = [NIMKitFileLocationHelper genFilenameWithExt:@"mp4"];
+                    outputPath = [NIMKitFileLocationHelper filepathForVideo:outputFileName];
+                    BOOL fileExist = [[NSFileManager defaultManager] fileExistsAtPath:URLAsset.URL.path];
+                    if (!fileExist) {
+                        error = [NSError errorWithDomain:@"nimdemo.netease.fetcher" code:0x1001 userInfo:@{NSLocalizedDescriptionKey:@"图片在本地不存在"}];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [[UIApplication sharedApplication].keyWindow makeToast:@"图片在本地不存在，无法发送"
+                                                                          duration:2
+                                                                          position:CSToastPositionCenter];
+                        });
+                    } else {
+                        [NSFileManager.defaultManager copyItemAtURL:URLAsset.URL toURL:[NSURL fileURLWithPath:outputPath] error:&error];
+                    }
+                }
+
                 dispatch_async(dispatch_get_main_queue(), ^{
                     handler(!error ? outputPath : nil, PHAssetMediaTypeVideo);
                 });
@@ -311,17 +339,15 @@
     return isPortrait;
 }
 
-- (void)initCamera:(void (^)(UIImagePickerController * _Nullable imagePicker))handler {
+- (BOOL)initCamera{
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         [[[UIAlertView alloc] initWithTitle:nil
                                     message:@"检测不到相机设备".nim_localized
                                    delegate:nil
                           cancelButtonTitle:@"确定".nim_localized
                           otherButtonTitles:nil] show];
-        handler(nil);
-        return;
+        return NO;
     }
-
     NSString *mediaType = AVMediaTypeVideo;
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
     if(authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied){
@@ -330,15 +356,10 @@
                                    delegate:nil
                           cancelButtonTitle:@"确定".nim_localized
                           otherButtonTitles:nil] show];
-        handler(nil);
-        return;
+        return NO;
+        
     }
-    
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.delegate = self;
-    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    imagePicker.mediaTypes = self.mediaTypes;
-    handler(imagePicker);
+    return YES;
 }
 
 - (void)originalPhotoWithAsset:(id)asset completion:(void (^)(UIImage *photo,NSDictionary *info,BOOL isDegraded))completion {
