@@ -1253,7 +1253,11 @@ dispatch_queue_t NTESMessageDataPrepareQueue()
             {
                 model.emoticonsContainerSize = CGSizeZero;
             }
-            completion(YES, result);
+            if (error) {
+                completion(NO, nil);
+            } else {
+                completion(YES, result);
+            }
         }
     }];
 }
