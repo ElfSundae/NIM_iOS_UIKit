@@ -1,5 +1,14 @@
 PODS:
   - FLAnimatedImage (1.0.12)
+  - libwebp (1.1.0):
+    - libwebp/demux (= 1.1.0)
+    - libwebp/mux (= 1.1.0)
+    - libwebp/webp (= 1.1.0)
+  - libwebp/demux (1.1.0):
+    - libwebp/webp
+  - libwebp/mux (1.1.0):
+    - libwebp/demux
+  - libwebp/webp (1.1.0)
   - M80AttributedLabel (1.9.9)
   - NIMKit (3.0.100):
     - NIMKit/Lite (= 3.0.100)
@@ -10,7 +19,7 @@ PODS:
     - Toast (~> 4.0)
     - TZImagePickerController (~> 3.0)
     - UICollectionViewLeftAlignedLayout (~> 1.0)
-    - YYImage (~> 1.0)
+    - YYImage (~> 1.1)
     - YYImage/WebP
   - NIMKit/Lite (3.0.100):
     - NIMKit/Core
@@ -22,41 +31,45 @@ PODS:
   - Toast (4.0.0)
   - TZImagePickerController (3.4.8)
   - UICollectionViewLeftAlignedLayout (1.0.2)
-  - YYImage (1.0.4):
-    - YYImage/Core (= 1.0.4)
-  - YYImage/Core (1.0.4)
-  - YYImage/WebP (1.0.4):
+  - YYImage (1.1.1):
+    - YYImage/Core (= 1.1.1)
+  - YYImage/Core (1.1.1)
+  - YYImage/WebP (1.1.1):
+    - libwebp (~> 1.0)
     - YYImage/Core
 
 DEPENDENCIES:
-  - NIMKit (from `../`)
+  - NIMKit (from `..`)
 
 SPEC REPOS:
+  https://github.com/ElfSundae/CocoaPods-Specs.git:
+    - YYImage
   trunk:
     - FLAnimatedImage
+    - libwebp
     - M80AttributedLabel
     - NIMSDK_LITE
     - SDWebImage
     - Toast
     - TZImagePickerController
     - UICollectionViewLeftAlignedLayout
-    - YYImage
 
 EXTERNAL SOURCES:
   NIMKit:
-    :path: "../"
+    :path: ".."
 
 SPEC CHECKSUMS:
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
+  libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
   M80AttributedLabel: 77fedfe63804c989a6de0fa4d400ea8cad3ab441
-  NIMKit: 478020afc17c14a007706858769dbf71bb3d100a
+  NIMKit: 88fbe62ea2f55310320b908cc26dcabd22f3496a
   NIMSDK_LITE: 26ddf375da50a4da9889075092b7ad32ca207bf5
   SDWebImage: b69257f4ab14e9b6a2ef53e910fdf914d8f757c1
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   TZImagePickerController: 6685e6d81b8fd5453e80ba369dd4ebd6e97276ee
   UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
-  YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
+  YYImage: 3bfa2ff002708f6fbb549cff029181cf192c0b0d
 
-PODFILE CHECKSUM: 0df66ed49e6ece9b6c510e85cc054854cb8dd2a3
+PODFILE CHECKSUM: 6108dd6e584d52c1fc634aacd979aaad00707d6c
 
 COCOAPODS: 1.10.0

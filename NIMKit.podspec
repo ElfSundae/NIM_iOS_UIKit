@@ -31,7 +31,7 @@ Pod::Spec.new do |s|
     os.dependency 'Toast', '~> 4.0'
     os.dependency 'TZImagePickerController', '~> 3.0'
     os.dependency 'M80AttributedLabel', '~> 1.9'
-    os.dependency 'YYImage', '~> 1.0'
+    os.dependency 'YYImage', '~> 1.1'
     os.dependency 'YYImage/WebP'
     os.dependency 'UICollectionViewLeftAlignedLayout', '~> 1.0'
   end
