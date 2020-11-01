@@ -10,6 +10,11 @@ Pod::Spec.new do |s|
   s.frameworks = 'CoreText', 'SystemConfiguration', 'AVFoundation', 'CoreTelephony', 'AudioToolbox', 'CoreMedia' , 'VideoToolbox'
   s.libraries  = 'sqlite3.0', 'z', 'c++'
 
+  # To fix build error: building for iOS Simulator, but linking in dylib built for iOS, file 'NIMSDK.framework/NIMSDK' for architecture arm64
+  # https://stackoverflow.com/a/63955114/521946
+  s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
+  s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
+
   s.default_subspec = 'Lite'
 
   s.subspec 'Lite' do |cs|
