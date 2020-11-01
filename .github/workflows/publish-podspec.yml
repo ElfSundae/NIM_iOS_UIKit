@@ -11,13 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Publish podspec
+      - name: Publish Podspec
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          pod repo add podrepo https://${PODREPO_GITHUB_API_TOKEN}@github.com/${PODREPO_GITHUB_REPOSITORY}.git
-          pod lib lint --quick
-          pod repo push podrepo --use-json --allow-warnings --sources=https://github.com/ElfSundae/CocoaPods-Specs.git,trunk
+          pod repo push https://${PODREPO_GITHUB_API_TOKEN}@github.com/${PODREPO_GITHUB_REPOSITORY}.git --use-json --allow-warnings --sources=https://github.com/ElfSundae/CocoaPods-Specs.git,trunk
         env:
           PODREPO_GITHUB_API_TOKEN: ${{ secrets.PODREPO_GITHUB_API_TOKEN }}
           PODREPO_GITHUB_REPOSITORY: ElfSundae/CocoaPods-Specs
