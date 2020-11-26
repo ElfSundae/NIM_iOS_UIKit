@@ -10,9 +10,9 @@ PODS:
     - libwebp/demux
   - libwebp/webp (1.1.0)
   - M80AttributedLabel (1.9.9)
-  - NIMKit (3.0.101):
-    - NIMKit/Lite (= 3.0.101)
-  - NIMKit/Core (3.0.101):
+  - NIMKit (3.1.100):
+    - NIMKit/Lite (= 3.1.100)
+  - NIMKit/Core (3.1.100):
     - FLAnimatedImage (~> 1.0)
     - M80AttributedLabel (~> 1.9)
     - SDWebImage (~> 5.1)
@@ -21,15 +21,15 @@ PODS:
     - UICollectionViewLeftAlignedLayout (~> 1.0)
     - YYImage (~> 1.1)
     - YYImage/WebP
-  - NIMKit/Lite (3.0.101):
+  - NIMKit/Lite (3.1.100):
     - NIMKit/Core
-    - NIMSDK_LITE (~> 8.0.1)
-  - NIMSDK_LITE (8.0.100)
-  - SDWebImage (5.9.4):
-    - SDWebImage/Core (= 5.9.4)
-  - SDWebImage/Core (5.9.4)
+    - NIMSDK_LITE (~> 8.1.0)
+  - NIMSDK_LITE (8.1.0)
+  - SDWebImage (5.10.0):
+    - SDWebImage/Core (= 5.10.0)
+  - SDWebImage/Core (5.10.0)
   - Toast (4.0.0)
-  - TZImagePickerController (3.5.1)
+  - TZImagePickerController (3.5.4)
   - UICollectionViewLeftAlignedLayout (1.0.2)
   - YYImage (1.1.1):
     - YYImage/Core (= 1.1.1)
@@ -43,12 +43,12 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/ElfSundae/CocoaPods-Specs.git:
-    - NIMSDK_LITE
     - YYImage
   trunk:
     - FLAnimatedImage
     - libwebp
     - M80AttributedLabel
+    - NIMSDK_LITE
     - SDWebImage
     - Toast
     - TZImagePickerController
@@ -62,11 +62,11 @@ SPEC CHECKSUMS:
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
   M80AttributedLabel: 77fedfe63804c989a6de0fa4d400ea8cad3ab441
-  NIMKit: 2fa1bdaa86d94b8ea2e8fec3e93e871d1a490842
-  NIMSDK_LITE: 29a3e05da2a91870c1a58c3d0cf426d654a73c0d
-  SDWebImage: b69257f4ab14e9b6a2ef53e910fdf914d8f757c1
+  NIMKit: e3d91a646df29aa03d3edc93bb96c1fd042b7149
+  NIMSDK_LITE: 0a8f396dbd57ebe200ab614a9f9339f6417e1b50
+  SDWebImage: 9169792e9eec3e45bba2a0c02f74bf8bd922d1ee
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
-  TZImagePickerController: 21b5e8af2458053ec55b33044316d87c366d7707
+  TZImagePickerController: 891421e1fa0d8dfa295388e1f8a8ce2d5152ae88
   UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
   YYImage: 3bfa2ff002708f6fbb549cff029181cf192c0b0d
 
