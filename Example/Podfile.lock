@@ -10,9 +10,9 @@ PODS:
     - libwebp/demux
   - libwebp/webp (1.1.0)
   - M80AttributedLabel (1.9.9)
-  - NIMKit (3.1.200):
-    - NIMKit/Lite (= 3.1.200)
-  - NIMKit/Core (3.1.200):
+  - NIMKit (3.1.300):
+    - NIMKit/Lite (= 3.1.300)
+  - NIMKit/Core (3.1.300):
     - FLAnimatedImage (~> 1.0)
     - M80AttributedLabel (~> 1.9)
     - SDWebImage (~> 5.1)
@@ -21,10 +21,10 @@ PODS:
     - UICollectionViewLeftAlignedLayout (~> 1.0)
     - YYImage (~> 1.1)
     - YYImage/WebP
-  - NIMKit/Lite (3.1.200):
+  - NIMKit/Lite (3.1.300):
     - NIMKit/Core
     - NIMSDK_LITE (~> 8.1.2)
-  - NIMSDK_LITE (8.1.2)
+  - NIMSDK_LITE (8.1.200)
   - SDWebImage (5.10.0):
     - SDWebImage/Core (= 5.10.0)
   - SDWebImage/Core (5.10.0)
@@ -43,12 +43,12 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/ElfSundae/CocoaPods-Specs.git:
+    - NIMSDK_LITE
     - YYImage
   trunk:
     - FLAnimatedImage
     - libwebp
     - M80AttributedLabel
-    - NIMSDK_LITE
     - SDWebImage
     - Toast
     - TZImagePickerController
@@ -62,8 +62,8 @@ SPEC CHECKSUMS:
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
   M80AttributedLabel: 77fedfe63804c989a6de0fa4d400ea8cad3ab441
-  NIMKit: 42881cc4ccddf9b738a349e974df73677761c35a
-  NIMSDK_LITE: 72a313020c66fcd7e980f7d88d98a1b829862f03
+  NIMKit: 3d1361a1693812c0daeafebf7a25aa2815aaea9e
+  NIMSDK_LITE: 62e6026b17bc05797ac3f885c6402511dc0f7ef6
   SDWebImage: 9169792e9eec3e45bba2a0c02f74bf8bd922d1ee
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   TZImagePickerController: 891421e1fa0d8dfa295388e1f8a8ce2d5152ae88
