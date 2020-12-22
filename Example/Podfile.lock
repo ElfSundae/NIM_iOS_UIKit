@@ -10,9 +10,9 @@ PODS:
     - libwebp/demux
   - libwebp/webp (1.1.0)
   - M80AttributedLabel (1.9.9)
-  - NIMKit (3.1.500):
-    - NIMKit/Lite (= 3.1.500)
-  - NIMKit/Core (3.1.500):
+  - NIMKit (3.1.600):
+    - NIMKit/Lite (= 3.1.600)
+  - NIMKit/Core (3.1.600):
     - FLAnimatedImage (~> 1.0)
     - M80AttributedLabel (~> 1.9)
     - SDWebImage (~> 5.1)
@@ -21,10 +21,10 @@ PODS:
     - UICollectionViewLeftAlignedLayout (~> 1.0)
     - YYImage (~> 1.1)
     - YYImage/WebP
-  - NIMKit/Lite (3.1.500):
+  - NIMKit/Lite (3.1.600):
     - NIMKit/Core
-    - NIMSDK_LITE (~> 8.1.4)
-  - NIMSDK_LITE (8.1.400)
+    - NIMSDK_LITE (~> 8.1.5)
+  - NIMSDK_LITE (8.1.500)
   - SDWebImage (5.10.0):
     - SDWebImage/Core (= 5.10.0)
   - SDWebImage/Core (5.10.0)
@@ -62,8 +62,8 @@ SPEC CHECKSUMS:
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
   M80AttributedLabel: 77fedfe63804c989a6de0fa4d400ea8cad3ab441
-  NIMKit: 17451208808b1643ead9d4e9619cef317e72e917
-  NIMSDK_LITE: ff3ba65b2d5fdd26e8432d2a3082f5106ccfd66a
+  NIMKit: a61d7545e9d4699997e59b848f29090df6c539ee
+  NIMSDK_LITE: 4883695838652b34e8989a53104c2309e81ac8fb
   SDWebImage: 9169792e9eec3e45bba2a0c02f74bf8bd922d1ee
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   TZImagePickerController: aff4b62eacce0194d2494ee4f42934bcff577cec
