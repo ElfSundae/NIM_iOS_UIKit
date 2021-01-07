@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
   s.name = 'NIMKit'
-  s.version = '3.1.600'
+  s.version = '3.2.001'
   s.summary = 'Netease IM UI Kit'
   s.homepage = 'http://netease.im'
-  s.license = { :'type' => 'Copyright', :'text' => ' Copyright 2019 Netease '}
+  s.license = { :'type' => 'Copyright', :'text' => ' Copyright 2021 Netease '}
   s.authors = 'Netease IM Team'
   s.source  = { :git => 'https://github.com/ElfSundae/NIM_iOS_UIKit.git', :tag => s.version }
   s.platform = :ios, '9.0'
@@ -20,13 +20,13 @@ Pod::Spec.new do |s|
   s.subspec 'Lite' do |cs|
     cs.source_files = 'NIMKit/NIMKit/**/*.{h,m}'
     cs.dependency 'NIMKit/Core'
-    cs.dependency 'NIMSDK_LITE', '~> 8.1.5'
+    cs.dependency 'NIMSDK_LITE', '~> 8.2.0'
   end
 
   s.subspec 'Full' do |cs|
     cs.source_files = 'NIMKit/NIMKit/**/*.{h,m}'
     cs.dependency 'NIMKit/Core'
-    cs.dependency 'NIMSDK', '~> 8.1.5'
+    cs.dependency 'NIMSDK', '~> 8.2.0'
   end
 
   s.subspec 'Core' do |os|
@@ -34,7 +34,7 @@ Pod::Spec.new do |s|
     os.dependency 'SDWebImage', '~> 5.1'
     os.dependency 'FLAnimatedImage', '~> 1.0'
     os.dependency 'Toast', '~> 4.0'
-    os.dependency 'TZImagePickerController', '~> 3.0'
+    os.dependency 'TZImagePickerController', '~> 3.5'
     os.dependency 'M80AttributedLabel', '~> 1.9'
     os.dependency 'YYImage', '~> 1.1'
     os.dependency 'YYImage/WebP'
