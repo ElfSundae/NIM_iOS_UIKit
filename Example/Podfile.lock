@@ -1,18 +1,18 @@
 PODS:
-  - FLAnimatedImage (1.0.12)
-  - libwebp (1.1.0):
-    - libwebp/demux (= 1.1.0)
-    - libwebp/mux (= 1.1.0)
-    - libwebp/webp (= 1.1.0)
-  - libwebp/demux (1.1.0):
+  - FLAnimatedImage (1.0.15)
+  - libwebp (1.2.0):
+    - libwebp/demux (= 1.2.0)
+    - libwebp/mux (= 1.2.0)
+    - libwebp/webp (= 1.2.0)
+  - libwebp/demux (1.2.0):
     - libwebp/webp
-  - libwebp/mux (1.1.0):
+  - libwebp/mux (1.2.0):
     - libwebp/demux
-  - libwebp/webp (1.1.0)
+  - libwebp/webp (1.2.0)
   - M80AttributedLabel (1.9.9)
-  - NIMKit (3.2.100):
-    - NIMKit/Lite (= 3.2.100)
-  - NIMKit/Core (3.2.100):
+  - NIMKit (3.3.001):
+    - NIMKit/Lite (= 3.3.001)
+  - NIMKit/Core (3.3.001):
     - FLAnimatedImage (~> 1.0)
     - M80AttributedLabel (~> 1.9)
     - SDWebImage (~> 5.1)
@@ -21,13 +21,13 @@ PODS:
     - UICollectionViewLeftAlignedLayout (~> 1.0)
     - YYImage (~> 1.1)
     - YYImage/WebP
-  - NIMKit/Lite (3.2.100):
+  - NIMKit/Lite (3.3.001):
     - NIMKit/Core
-    - NIMSDK_LITE (~> 8.2.1)
-  - NIMSDK_LITE (8.2.100)
-  - SDWebImage (5.10.2):
-    - SDWebImage/Core (= 5.10.2)
-  - SDWebImage/Core (5.10.2)
+    - NIMSDK_LITE (~> 8.3.0)
+  - NIMSDK_LITE (8.3.001)
+  - SDWebImage (5.10.4):
+    - SDWebImage/Core (= 5.10.4)
+  - SDWebImage/Core (5.10.4)
   - Toast (4.0.0)
   - TZImagePickerController (3.5.8)
   - UICollectionViewLeftAlignedLayout (1.0.2)
@@ -59,12 +59,12 @@ EXTERNAL SOURCES:
     :path: ".."
 
 SPEC CHECKSUMS:
-  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
-  libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
+  FLAnimatedImage: dd3db277b17e909ec3c7fd41adfce79b321d960e
+  libwebp: e90b9c01d99205d03b6bb8f2c8c415e5a4ef66f0
   M80AttributedLabel: 77fedfe63804c989a6de0fa4d400ea8cad3ab441
-  NIMKit: 232dc335b5fcd4bf0d9070a6eb0c910af1116af5
-  NIMSDK_LITE: cfc3499bf9188d2c78e97381e2159b61b780613c
-  SDWebImage: b969dcfc02c40a5da71eac0b03b8f1a0c794a86f
+  NIMKit: ac2c80775cf5877c784dc8f4b3bc605cd8a8c234
+  NIMSDK_LITE: 8939f07c3f4d0ba2f4937b34c06e178656d6fcc3
+  SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   TZImagePickerController: 7fd9702897ef8c0b7c951e5463f4bcf398296f9e
   UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
@@ -72,4 +72,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 6108dd6e584d52c1fc634aacd979aaad00707d6c
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1
