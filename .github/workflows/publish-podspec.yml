@@ -16,7 +16,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           pod lib lint --quick
-          pod repo push https://${PODREPO_GITHUB_API_TOKEN}@github.com/${PODREPO_GITHUB_REPOSITORY}.git --use-json --allow-warnings --sources=https://github.com/ElfSundae/CocoaPods-Specs.git,trunk
+          pod repo push https://${PODREPO_GITHUB_API_TOKEN}@github.com/${PODREPO_GITHUB_REPOSITORY}.git --use-json --allow-warnings --sources=https://github.com/ElfSundae/CocoaPods-Specs.git,trunk --skip-import-validation
         env:
           PODREPO_GITHUB_API_TOKEN: ${{ secrets.PODREPO_GITHUB_API_TOKEN }}
           PODREPO_GITHUB_REPOSITORY: ElfSundae/CocoaPods-Specs

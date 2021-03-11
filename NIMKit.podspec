@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'NIMKit'
-  s.version = '3.3.001'
+  s.version = '3.3.002'
   s.summary = 'Netease IM UI Kit'
   s.homepage = 'http://netease.im'
   s.license = { :'type' => 'Copyright', :'text' => ' Copyright 2021 Netease '}
@@ -9,11 +9,6 @@ Pod::Spec.new do |s|
   s.platform = :ios, '9.0'
   s.frameworks = 'CoreText', 'SystemConfiguration', 'AVFoundation', 'CoreTelephony', 'AudioToolbox', 'CoreMedia' , 'VideoToolbox'
   s.libraries  = 'sqlite3.0', 'z', 'c++'
-
-  # To fix build error: building for iOS Simulator, but linking in dylib built for iOS, file 'NIMSDK.framework/NIMSDK' for architecture arm64
-  # https://stackoverflow.com/a/63955114/521946
-  s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386 arm64' }
-  s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386 arm64' }
 
   s.default_subspec = 'Lite'
 

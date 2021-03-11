@@ -20,4 +20,4 @@ jobs:
             -sdk iphonesimulator | xcpretty -c
 
       - name: Lint Pod
-        run: pod lib lint --allow-warnings --sources=https://github.com/ElfSundae/CocoaPods-Specs.git,trunk
+        run: pod lib lint --allow-warnings --sources=https://github.com/ElfSundae/CocoaPods-Specs.git,trunk --skip-import-validation
