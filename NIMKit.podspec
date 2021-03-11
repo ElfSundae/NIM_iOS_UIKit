@@ -10,6 +10,9 @@ Pod::Spec.new do |s|
   s.frameworks = 'CoreText', 'SystemConfiguration', 'AVFoundation', 'CoreTelephony', 'AudioToolbox', 'CoreMedia' , 'VideoToolbox'
   s.libraries  = 'sqlite3.0', 'z', 'c++'
 
+  # NIMSDK removed architecture i386 from 8.2.5
+  s.pod_target_xcconfig = { 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
+
   s.default_subspec = 'Lite'
 
   s.subspec 'Lite' do |cs|
