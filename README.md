@@ -1,5 +1,3 @@
-**推荐客户得比特币,首次推荐得0.02BTC,连续推荐得0.03BTC/单,上不封顶。点击参与https://yunxin.163.com/promotion/recommend**
-
 # 网易云信 UI 组件 	· iOS
 [![Build status](https://github.com/ElfSundae/NIM_iOS_UIKit/workflows/Build/badge.svg)](https://github.com/ElfSundae/NIM_iOS_UIKit/actions?query=workflow%3ABuild)
 [![Pod Version](https://img.shields.io/github/v/tag/ElfSundae/NIM_iOS_UIKit?label=pod)](#)
