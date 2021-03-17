@@ -303,7 +303,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-DemoApplication/Pods-DemoApplication-frameworks.sh",
-				"${PODS_ROOT}/NIMSDK_LITE/NIMSDK/NIMSDK.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/NIMSDK/NIMSDK.framework/NIMSDK",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
