@@ -10,8 +10,10 @@ Pod::Spec.new do |s|
   s.frameworks = 'CoreText', 'SystemConfiguration', 'AVFoundation', 'CoreTelephony', 'AudioToolbox', 'CoreMedia' , 'VideoToolbox'
   s.libraries  = 'sqlite3.0', 'z', 'c++'
 
-  # NIMSDK removed architecture i386 from 8.2.5
-  s.pod_target_xcconfig = { 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
+  # Exclude i386 architecture because NIMSDK removed i386 arch since 8.2.5;
+  # Exclude arm64 to fix build error: building for iOS Simulator, but linking in dylib built for iOS, file 'NIMSDK.framework/NIMSDK' for architecture arm64
+  # https://stackoverflow.com/a/63955114/521946
+  s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386 arm64' }
 
   s.default_subspec = 'Lite'
 
